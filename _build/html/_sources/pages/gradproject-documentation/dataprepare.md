@@ -1,0 +1,5 @@
+# Chuẩn bị dữ liệu
+
+```{note}
+Download dữ liệu tại [đây](https://phat-collection.s3-ap-southeast-1.amazonaws.com/cachua_resize2.rar)
+```

@@ -1,5 +1,7 @@
 - file: pages/landing-page
 - part: GRADUATION PROJECT DOCUMENTATION
   chapters:
-  - file: pages/page1
-  - file: pages/page2
+  - file: pages/gradproject-documentation/overview
+  - file: pages/gradproject-documentation/dataprepare
+  - file: pages/gradproject-documentation/training
+  - file: pages/gradproject-documentation/deploy

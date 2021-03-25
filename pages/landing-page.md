@@ -1,8 +1,9 @@
+![Image](../images/background.jpg)
 # INTRODUCTION
 
-> Welcome to my homepage, I'm Phat Truong, currently an AI researcher at SceneSeer
+> Welcome to my homepage, I'm Phat Truong, currently an AI Researcher
 
 ## My page section:
-* [GRADUATION PROJECT DOCUMENTATION](page1): This is the documentation of my university graduation project 
+* [Graduation Project Documentation](gradproject-documentation/overview): This is the documentation of my university graduation project 
 
 
