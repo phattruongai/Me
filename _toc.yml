@@ -1,0 +1,5 @@
+- file: pages/landing-page
+- part: GRADUATION PROJECT DOCUMENTATION
+  chapters:
+  - file: pages/page1
+  - file: pages/page2
