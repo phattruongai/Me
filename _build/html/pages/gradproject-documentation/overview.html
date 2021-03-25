@@ -107,11 +107,6 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="training.html#pretrain-model">
-   Pretrain model
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="deploy.html">
    Triển khai
   </a>
@@ -200,13 +195,13 @@
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pcb-va-so-do-nguyen-li">
-     2. PCB và sơ đồ nguyên lí:
+    <a class="reference internal nav-link" href="#pcb-va-so-do-nguyen-li-tham-khao">
+     2. PCB và sơ đồ nguyên lí (Tham khảo):
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vi-dieu-khien-stm32f103c8t6">
-     3. Vi điều khiển (STM32F103C8T6):
+    <a class="reference internal nav-link" href="#vi-dieu-khien-stm32f103c8t6-tham-khao">
+     3. Vi điều khiển (STM32F103C8T6) (Tham khảo):
     </a>
    </li>
   </ul>
@@ -227,12 +222,17 @@
 <h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="tomato-classification-system">
 <h2>Tomato Classification System<a class="headerlink" href="#tomato-classification-system" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Đây là đồ án tốt nghiệp của mình dưới sự hướng dẫn của thầy Vũ Quang Huy, Đại học Sư Phạm Kỹ Thuật TPHCM. Dự án bao gồm 3 phần bên dưới và source code mình đã public trên <a class="reference external" href="https://github.com/phattruongai/Tomato-classification-system">Github</a>, trong bài hướng dẫn này thì mình sẽ giới thiệu chủ yếu về cách mình xây dựng một mô hình phân loại ảnh (image classification model) và chạy hệ thống trên raspberry Pi trong thời gian thực.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Mình cũng đã publish một <a class="reference external" href="https://ieeexplore.ieee.org/document/9303079">IEEE paper</a> về mạng neural này và được trình bày tại hội nghị <a class="reference external" href="https://easychair.org/cfp/GTSD2020">GTSD 2020</a></p>
+</div>
 <p><img alt="" src="../../_images/3D.png" />
 <a class="reference internal" href="../../_images/tSNE.png"><img alt="drawing" src="../../_images/tSNE.png" style="width: 200px;" /></a>
 <a class="reference internal" href="../../_images/model.png"><img alt="drawing" src="../../_images/model.png" style="width: 700px; height: 200px;" /></a></p>
-<blockquote>
-<div><p>Đây là đồ án tốt nghiệp của mình dưới sự hướng dẫn của thầy Vũ Quang Huy. Dự án bao gồm 3 phần bên dưới và source code mình đã public trên <a class="reference external" href="https://github.com/phattruongai/Tomato-classification-system">Github</a>, trong bài hướng dẫn này thì mình sẽ giới thiệu chủ yếu về cách mình xây dựng một mô hình phân loại ảnh (image classification model) và chạy hệ thống trên raspberry Pi trong thời gian thực.</p>
-</div></blockquote>
 <div class="section" id="mo-hinh-phan-loai-anh-mang-neural-tich-chap-ket-hop-voi-phep-tinh-grad-cam-de-truc-quan-hoa-du-doan-cua-mo-hinh">
 <h3>1. Mô hình phân loại ảnh (Mạng neural tích chập kết hợp với phép tính Grad-CAM để trực quan hóa dự đoán của mô hình):<a class="headerlink" href="#mo-hinh-phan-loai-anh-mang-neural-tich-chap-ket-hop-voi-phep-tinh-grad-cam-de-truc-quan-hoa-du-doan-cua-mo-hinh" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="huong-dan-bam-vao-tung-link-ben-duoi-de-xem-chi-tiet">
@@ -244,17 +244,13 @@
 </ul>
 </div>
 </div>
-<div class="section" id="pcb-va-so-do-nguyen-li">
-<h3>2. PCB và sơ đồ nguyên lí:<a class="headerlink" href="#pcb-va-so-do-nguyen-li" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pcb-va-so-do-nguyen-li-tham-khao">
+<h3>2. PCB và sơ đồ nguyên lí (Tham khảo):<a class="headerlink" href="#pcb-va-so-do-nguyen-li-tham-khao" title="Permalink to this headline">¶</a></h3>
 <!-- * [PCB]() -->
 </div>
-<div class="section" id="vi-dieu-khien-stm32f103c8t6">
-<h3>3. Vi điều khiển (STM32F103C8T6):<a class="headerlink" href="#vi-dieu-khien-stm32f103c8t6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="vi-dieu-khien-stm32f103c8t6-tham-khao">
+<h3>3. Vi điều khiển (STM32F103C8T6) (Tham khảo):<a class="headerlink" href="#vi-dieu-khien-stm32f103c8t6-tham-khao" title="Permalink to this headline">¶</a></h3>
 <!-- * [Controller-STM32F1]() -->
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>I also have an <a class="reference external" href="https://ieeexplore.ieee.org/document/9303079">IEEE paper</a> for this project which represented at <a class="reference external" href="https://easychair.org/cfp/GTSD2020">GTSD 2020</a></p>
-</div>
 </div>
 </div>
 </div>

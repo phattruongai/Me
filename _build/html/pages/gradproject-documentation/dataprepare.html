@@ -54,7 +54,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Pretrain model" href="training.html" />
+    <link rel="next" title="Huấn luyện" href="training.html" />
     <link rel="prev" title="Overview" href="overview.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,7 +103,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="training.html">
-   Pretrain model
+   Huấn luyện
   </a>
  </li>
  <li class="toctree-l1">
@@ -172,6 +172,30 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clone-github-ve-local-machine-cua-minh">
+   1. Clone github về local machine của mình:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#to-chuc-thu-muc">
+   2. Tổ chức thư mục
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tien-xu-li-va-dong-goi-du-lieu">
+   3. Tiền xử lí và đóng gói dữ liệu:
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
         </div>
     </div>
 </div>
@@ -185,6 +209,89 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Download dữ liệu tại <a class="reference external" href="https://phat-collection.s3-ap-southeast-1.amazonaws.com/cachua_resize2.rar">đây</a></p>
+</div>
+<div class="section" id="clone-github-ve-local-machine-cua-minh">
+<h2>1. Clone github về local machine của mình:<a class="headerlink" href="#clone-github-ve-local-machine-cua-minh" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Chạy:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">phattruongai</span><span class="o">/</span><span class="n">Tomato</span><span class="o">-</span><span class="n">classification</span><span class="o">-</span><span class="n">system</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">Tomato</span><span class="o">-</span><span class="n">classification</span><span class="o">-</span><span class="n">system</span><span class="o">/</span><span class="n">Classification</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-chuc-thu-muc">
+<h2>2. Tổ chức thư mục<a class="headerlink" href="#to-chuc-thu-muc" title="Permalink to this headline">¶</a></h2>
+<p>Sau khi download dữ liệu về và giải nén thì ta sẽ có 1 thư mục tên <code class="docutils literal notranslate"><span class="pre">cachua_resize2</span></code>, đặt thư mục này như đường dẫn sau <code class="docutils literal notranslate"><span class="pre">Tomato-classification-system/Classification/cachua_resize2</span></code></p>
+<ul class="simple">
+<li><p>Cây thư mục:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Classification
+    |---cachua_resize2
+        |---train
+        |   |---loai1
+        |   |---loai2
+        |   |---loai3
+        |   |---loai4
+        |   |---loai5
+        |   `---loai6
+        `---test
+            |---loai1
+            |---loai2
+            |---loai3
+            |---loai4
+            |---loai5
+            `---loai6
+</pre></div>
+</div>
+</div>
+<div class="section" id="tien-xu-li-va-dong-goi-du-lieu">
+<h2>3. Tiền xử lí và đóng gói dữ liệu:<a class="headerlink" href="#tien-xu-li-va-dong-goi-du-lieu" title="Permalink to this headline">¶</a></h2>
+<p>Mở file <code class="docutils literal notranslate"><span class="pre">Classification/make_data_and_preprocessing/make_data/make_data/make_data.py</span></code> để xem các đoạn code, mình sẽ giải thích một số đoạn, để đơn giản, các bạn chỉ cần chạy script như cuối phần này</p>
+<ul class="simple">
+<li><p>Resize và normalize:</p></li>
+</ul>
+<blockquote>
+<div><p>Tất cả các ảnh được đưa về 100x100 và chia 255 để có giá trị nằm trong khoảng [0,1]</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train_classes</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">train_dir</span><span class="p">)</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">t_class</span> <span class="ow">in</span> <span class="n">train_classes</span><span class="p">:</span>
+    <span class="n">y_now</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,))</span>
+    <span class="n">t_list</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">train_dir</span><span class="o">+</span><span class="n">t_class</span><span class="p">)</span>
+    <span class="n">y_now</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t_class</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">img_name</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">t_class</span><span class="p">,</span><span class="n">img_name</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">train_dir</span><span class="o">+</span><span class="n">t_class</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">img_name</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span> <span class="c1">#resize</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">/</span><span class="mi">255</span> <span class="c1">#normalization</span>
+        <span class="n">x_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="n">y_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_now</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Đóng gói bằng thư viện h5py:</p></li>
+</ul>
+<p>Sau khi tạo ra được mảng x_train và y_train dưới dạng numpy.array, ta lưu vào file h5py để tiện việc sử dụng nhiều lần trong lúc huấn luyện</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span> <span class="c1">#data, shape (num_image,100,100,3)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span> <span class="c1">#label,shape (num_image,6)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span> <span class="o">=</span> <span class="n">shuffle_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">F</span><span class="p">:</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;x_train&#39;</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">)</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;y_train&#39;</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Để đơn giản, chỉ cần chạy script dưới đây</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">make_data_and_preprocessing</span><span class="o">/</span><span class="n">make_data</span><span class="o">/</span><span class="n">make_data</span><span class="o">/</span><span class="n">make_data</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">working</span> <span class="o">.</span> <span class="o">--</span><span class="n">output</span> <span class="n">train_data_100</span><span class="o">.</span><span class="n">h5</span>
+</pre></div>
+</div>
+<p>Sau khi chạy xong, ta có file <code class="docutils literal notranslate"><span class="pre">train_data_100.h5</span></code> là file lưu dataset trực tiếp dưới dạng numpy array, tiện để load lên dùng lại nhiều lần trong lúc train. <strong>Lưu ý, với các dataset cực lớn thì lưu trực tiếp vào h5py sẽ không có lợi, thậm chí không chạy được vì không đủ RAM, khi đó ta sẽ dùng các cách khác để load dataset theo từng phần nhỏ trong lúc huấn luyện</strong></p>
 </div>
 </div>
 
@@ -214,7 +321,7 @@
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="overview.html" title="previous page">Overview</a>
-    <a class='right-next' id="next-link" href="training.html" title="next page">Pretrain model</a>
+    <a class='right-next' id="next-link" href="training.html" title="next page">Huấn luyện</a>
 
         </div>
         

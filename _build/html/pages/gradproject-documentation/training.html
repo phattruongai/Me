@@ -195,23 +195,18 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pretrain-model">
-   Pretrain model
+  <a class="reference internal nav-link" href="#cai-dat-moi-truong">
+   Cài đặt môi trường
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#architecture-1-2">
-   Architecture 1 &amp; 2
+  <a class="reference internal nav-link" href="#tao-kien-truc-cua-mo-hinh-cnn">
+   Tạo kiến trúc của mô hình CNN
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#architecture-3">
-   Architecture 3
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#train">
-   Train
+  <a class="reference internal nav-link" href="#huan-luyen-mo-hinh-vua-khoi-tao">
+   Huấn luyện mô hình vừa khởi tạo
   </a>
  </li>
 </ul>
@@ -228,6 +223,16 @@
                 
   <div class="section" id="huan-luyen">
 <h1>Huấn luyện<a class="headerlink" href="#huan-luyen" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cai-dat-moi-truong">
+<h2>Cài đặt môi trường<a class="headerlink" href="#cai-dat-moi-truong" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Môi trường mình dùng là Google Colabotory free, cũng đủ dùng với dataset nhỏ và thời gian train ngắn như bài này.
+Sau khi làm xong các bước chuẩn bị dữ liệu, hãy copy file <code class="docutils literal notranslate"><span class="pre">&lt;dataset&gt;.h5</span></code> lên Google Drive, tạo một notebook google colabotory và bắt đầu làm các bước trong notebook dưới đây</p>
+</div>
+<ul class="simple">
+<li><p>Gắn drive làm ổ cứng, nơi lưu dữ liệu của notebook . Hiện tại thì đã có giao diện ở thanh công cụ bên tay trái screen, nếu thích trực quan thì các bạn hãy dùng thanh công cụ đó thay cho các dòng code mount disk bên dưới.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
@@ -241,6 +246,9 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Import các thư viện cần thiết, chuyển working directory sang nơi chứa file <dataset>.h5</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
@@ -251,7 +259,7 @@
 <span class="kn">import</span> <span class="nn">h5py</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;./drive/My Drive/GG_colab/CDTproject&#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;./drive/My Drive/GG_colab/CDTproject&#39;</span><span class="p">)</span> <span class="c1">#hãy thay đổi theo nơi lưu &lt;dataset&gt;.h5</span>
 </pre></div>
 </div>
 </div>
@@ -268,6 +276,9 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Load dataset từ file h5py</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s2">&quot;train_data_100_18-02.h5&quot;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">F</span><span class="p">:</span>
@@ -288,605 +299,16 @@
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-
-<span class="n">x_train</span><span class="p">,</span><span class="n">x_val</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">,</span><span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.12</span><span class="p">,</span><span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x_val</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">y_val</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</pre></div>
 </div>
+<div class="section" id="tao-kien-truc-cua-mo-hinh-cnn">
+<h2>Tạo kiến trúc của mô hình CNN<a class="headerlink" href="#tao-kien-truc-cua-mo-hinh-cnn" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ở đây dùng các layer Convolutional bình thường kết hợp với Bottleneck residual block của MobileNet.</p>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2366, 100, 100, 3) (2366, 6)
-(323, 100, 100, 3) (323, 6)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_train</span><span class="p">):</span>
-  <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-  <span class="n">count</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="n">sumtrain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-<span class="n">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">/</span><span class="n">sumtrain</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.1682164  0.16737109 0.17075232 0.17582418 0.14623838 0.17159763]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">countval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_val</span><span class="p">):</span>
-  <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-  <span class="n">countval</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="n">sumval</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">countval</span><span class="p">)</span>
-<span class="n">countval</span> <span class="o">=</span> <span class="n">countval</span><span class="o">/</span><span class="n">sumval</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">countval</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.13312693 0.15789474 0.21671827 0.15479876 0.16718266 0.17027864]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counttest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y_train</span><span class="p">):</span>
-  <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-  <span class="n">counttest</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="n">sumtest</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">counttest</span><span class="p">)</span>
-<span class="n">counttest</span> <span class="o">=</span> <span class="n">counttest</span><span class="o">/</span><span class="n">sumtest</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">counttest</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.1682164  0.16737109 0.17075232 0.17582418 0.14623838 0.17159763]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="pretrain-model">
-<h2>Pretrain model<a class="headerlink" href="#pretrain-model" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.applications.resnet50</span> <span class="kn">import</span> <span class="n">ResNet50</span>
-<span class="n">base_model</span> <span class="o">=</span> <span class="n">ResNet50</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span><span class="n">include_top</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.6/dist-packages/keras_applications/resnet50.py:265: UserWarning: The output shape of `ResNet50(include_top=False)` has been changed since Keras 2.2.0.
-  warnings.warn(&#39;The output shape of `ResNet50(include_top=False)` &#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#for layer in base_model.layers:</span>
-  <span class="c1">#layer.trainable = False</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">base_model</span><span class="o">.</span><span class="n">output</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAvgPool2D</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">rate</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">input</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model_2&quot;
-__________________________________________________________________________________________________
-Layer (type)                    Output Shape         Param #     Connected to                     
-==================================================================================================
-input_2 (InputLayer)            (None, 100, 100, 3)  0                                            
-__________________________________________________________________________________________________
-conv1_pad (ZeroPadding2D)       (None, 106, 106, 3)  0           input_2[0][0]                    
-__________________________________________________________________________________________________
-conv1 (Conv2D)                  (None, 50, 50, 64)   9472        conv1_pad[0][0]                  
-__________________________________________________________________________________________________
-bn_conv1 (BatchNormalization)   (None, 50, 50, 64)   256         conv1[0][0]                      
-__________________________________________________________________________________________________
-activation_50 (Activation)      (None, 50, 50, 64)   0           bn_conv1[0][0]                   
-__________________________________________________________________________________________________
-pool1_pad (ZeroPadding2D)       (None, 52, 52, 64)   0           activation_50[0][0]              
-__________________________________________________________________________________________________
-max_pooling2d_2 (MaxPooling2D)  (None, 25, 25, 64)   0           pool1_pad[0][0]                  
-__________________________________________________________________________________________________
-res2a_branch2a (Conv2D)         (None, 25, 25, 64)   4160        max_pooling2d_2[0][0]            
-__________________________________________________________________________________________________
-bn2a_branch2a (BatchNormalizati (None, 25, 25, 64)   256         res2a_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_51 (Activation)      (None, 25, 25, 64)   0           bn2a_branch2a[0][0]              
-__________________________________________________________________________________________________
-res2a_branch2b (Conv2D)         (None, 25, 25, 64)   36928       activation_51[0][0]              
-__________________________________________________________________________________________________
-bn2a_branch2b (BatchNormalizati (None, 25, 25, 64)   256         res2a_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_52 (Activation)      (None, 25, 25, 64)   0           bn2a_branch2b[0][0]              
-__________________________________________________________________________________________________
-res2a_branch2c (Conv2D)         (None, 25, 25, 256)  16640       activation_52[0][0]              
-__________________________________________________________________________________________________
-res2a_branch1 (Conv2D)          (None, 25, 25, 256)  16640       max_pooling2d_2[0][0]            
-__________________________________________________________________________________________________
-bn2a_branch2c (BatchNormalizati (None, 25, 25, 256)  1024        res2a_branch2c[0][0]             
-__________________________________________________________________________________________________
-bn2a_branch1 (BatchNormalizatio (None, 25, 25, 256)  1024        res2a_branch1[0][0]              
-__________________________________________________________________________________________________
-add_17 (Add)                    (None, 25, 25, 256)  0           bn2a_branch2c[0][0]              
-                                                                 bn2a_branch1[0][0]               
-__________________________________________________________________________________________________
-activation_53 (Activation)      (None, 25, 25, 256)  0           add_17[0][0]                     
-__________________________________________________________________________________________________
-res2b_branch2a (Conv2D)         (None, 25, 25, 64)   16448       activation_53[0][0]              
-__________________________________________________________________________________________________
-bn2b_branch2a (BatchNormalizati (None, 25, 25, 64)   256         res2b_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_54 (Activation)      (None, 25, 25, 64)   0           bn2b_branch2a[0][0]              
-__________________________________________________________________________________________________
-res2b_branch2b (Conv2D)         (None, 25, 25, 64)   36928       activation_54[0][0]              
-__________________________________________________________________________________________________
-bn2b_branch2b (BatchNormalizati (None, 25, 25, 64)   256         res2b_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_55 (Activation)      (None, 25, 25, 64)   0           bn2b_branch2b[0][0]              
-__________________________________________________________________________________________________
-res2b_branch2c (Conv2D)         (None, 25, 25, 256)  16640       activation_55[0][0]              
-__________________________________________________________________________________________________
-bn2b_branch2c (BatchNormalizati (None, 25, 25, 256)  1024        res2b_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_18 (Add)                    (None, 25, 25, 256)  0           bn2b_branch2c[0][0]              
-                                                                 activation_53[0][0]              
-__________________________________________________________________________________________________
-activation_56 (Activation)      (None, 25, 25, 256)  0           add_18[0][0]                     
-__________________________________________________________________________________________________
-res2c_branch2a (Conv2D)         (None, 25, 25, 64)   16448       activation_56[0][0]              
-__________________________________________________________________________________________________
-bn2c_branch2a (BatchNormalizati (None, 25, 25, 64)   256         res2c_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_57 (Activation)      (None, 25, 25, 64)   0           bn2c_branch2a[0][0]              
-__________________________________________________________________________________________________
-res2c_branch2b (Conv2D)         (None, 25, 25, 64)   36928       activation_57[0][0]              
-__________________________________________________________________________________________________
-bn2c_branch2b (BatchNormalizati (None, 25, 25, 64)   256         res2c_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_58 (Activation)      (None, 25, 25, 64)   0           bn2c_branch2b[0][0]              
-__________________________________________________________________________________________________
-res2c_branch2c (Conv2D)         (None, 25, 25, 256)  16640       activation_58[0][0]              
-__________________________________________________________________________________________________
-bn2c_branch2c (BatchNormalizati (None, 25, 25, 256)  1024        res2c_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_19 (Add)                    (None, 25, 25, 256)  0           bn2c_branch2c[0][0]              
-                                                                 activation_56[0][0]              
-__________________________________________________________________________________________________
-activation_59 (Activation)      (None, 25, 25, 256)  0           add_19[0][0]                     
-__________________________________________________________________________________________________
-res3a_branch2a (Conv2D)         (None, 13, 13, 128)  32896       activation_59[0][0]              
-__________________________________________________________________________________________________
-bn3a_branch2a (BatchNormalizati (None, 13, 13, 128)  512         res3a_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_60 (Activation)      (None, 13, 13, 128)  0           bn3a_branch2a[0][0]              
-__________________________________________________________________________________________________
-res3a_branch2b (Conv2D)         (None, 13, 13, 128)  147584      activation_60[0][0]              
-__________________________________________________________________________________________________
-bn3a_branch2b (BatchNormalizati (None, 13, 13, 128)  512         res3a_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_61 (Activation)      (None, 13, 13, 128)  0           bn3a_branch2b[0][0]              
-__________________________________________________________________________________________________
-res3a_branch2c (Conv2D)         (None, 13, 13, 512)  66048       activation_61[0][0]              
-__________________________________________________________________________________________________
-res3a_branch1 (Conv2D)          (None, 13, 13, 512)  131584      activation_59[0][0]              
-__________________________________________________________________________________________________
-bn3a_branch2c (BatchNormalizati (None, 13, 13, 512)  2048        res3a_branch2c[0][0]             
-__________________________________________________________________________________________________
-bn3a_branch1 (BatchNormalizatio (None, 13, 13, 512)  2048        res3a_branch1[0][0]              
-__________________________________________________________________________________________________
-add_20 (Add)                    (None, 13, 13, 512)  0           bn3a_branch2c[0][0]              
-                                                                 bn3a_branch1[0][0]               
-__________________________________________________________________________________________________
-activation_62 (Activation)      (None, 13, 13, 512)  0           add_20[0][0]                     
-__________________________________________________________________________________________________
-res3b_branch2a (Conv2D)         (None, 13, 13, 128)  65664       activation_62[0][0]              
-__________________________________________________________________________________________________
-bn3b_branch2a (BatchNormalizati (None, 13, 13, 128)  512         res3b_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_63 (Activation)      (None, 13, 13, 128)  0           bn3b_branch2a[0][0]              
-__________________________________________________________________________________________________
-res3b_branch2b (Conv2D)         (None, 13, 13, 128)  147584      activation_63[0][0]              
-__________________________________________________________________________________________________
-bn3b_branch2b (BatchNormalizati (None, 13, 13, 128)  512         res3b_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_64 (Activation)      (None, 13, 13, 128)  0           bn3b_branch2b[0][0]              
-__________________________________________________________________________________________________
-res3b_branch2c (Conv2D)         (None, 13, 13, 512)  66048       activation_64[0][0]              
-__________________________________________________________________________________________________
-bn3b_branch2c (BatchNormalizati (None, 13, 13, 512)  2048        res3b_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_21 (Add)                    (None, 13, 13, 512)  0           bn3b_branch2c[0][0]              
-                                                                 activation_62[0][0]              
-__________________________________________________________________________________________________
-activation_65 (Activation)      (None, 13, 13, 512)  0           add_21[0][0]                     
-__________________________________________________________________________________________________
-res3c_branch2a (Conv2D)         (None, 13, 13, 128)  65664       activation_65[0][0]              
-__________________________________________________________________________________________________
-bn3c_branch2a (BatchNormalizati (None, 13, 13, 128)  512         res3c_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_66 (Activation)      (None, 13, 13, 128)  0           bn3c_branch2a[0][0]              
-__________________________________________________________________________________________________
-res3c_branch2b (Conv2D)         (None, 13, 13, 128)  147584      activation_66[0][0]              
-__________________________________________________________________________________________________
-bn3c_branch2b (BatchNormalizati (None, 13, 13, 128)  512         res3c_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_67 (Activation)      (None, 13, 13, 128)  0           bn3c_branch2b[0][0]              
-__________________________________________________________________________________________________
-res3c_branch2c (Conv2D)         (None, 13, 13, 512)  66048       activation_67[0][0]              
-__________________________________________________________________________________________________
-bn3c_branch2c (BatchNormalizati (None, 13, 13, 512)  2048        res3c_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_22 (Add)                    (None, 13, 13, 512)  0           bn3c_branch2c[0][0]              
-                                                                 activation_65[0][0]              
-__________________________________________________________________________________________________
-activation_68 (Activation)      (None, 13, 13, 512)  0           add_22[0][0]                     
-__________________________________________________________________________________________________
-res3d_branch2a (Conv2D)         (None, 13, 13, 128)  65664       activation_68[0][0]              
-__________________________________________________________________________________________________
-bn3d_branch2a (BatchNormalizati (None, 13, 13, 128)  512         res3d_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_69 (Activation)      (None, 13, 13, 128)  0           bn3d_branch2a[0][0]              
-__________________________________________________________________________________________________
-res3d_branch2b (Conv2D)         (None, 13, 13, 128)  147584      activation_69[0][0]              
-__________________________________________________________________________________________________
-bn3d_branch2b (BatchNormalizati (None, 13, 13, 128)  512         res3d_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_70 (Activation)      (None, 13, 13, 128)  0           bn3d_branch2b[0][0]              
-__________________________________________________________________________________________________
-res3d_branch2c (Conv2D)         (None, 13, 13, 512)  66048       activation_70[0][0]              
-__________________________________________________________________________________________________
-bn3d_branch2c (BatchNormalizati (None, 13, 13, 512)  2048        res3d_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_23 (Add)                    (None, 13, 13, 512)  0           bn3d_branch2c[0][0]              
-                                                                 activation_68[0][0]              
-__________________________________________________________________________________________________
-activation_71 (Activation)      (None, 13, 13, 512)  0           add_23[0][0]                     
-__________________________________________________________________________________________________
-res4a_branch2a (Conv2D)         (None, 7, 7, 256)    131328      activation_71[0][0]              
-__________________________________________________________________________________________________
-bn4a_branch2a (BatchNormalizati (None, 7, 7, 256)    1024        res4a_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_72 (Activation)      (None, 7, 7, 256)    0           bn4a_branch2a[0][0]              
-__________________________________________________________________________________________________
-res4a_branch2b (Conv2D)         (None, 7, 7, 256)    590080      activation_72[0][0]              
-__________________________________________________________________________________________________
-bn4a_branch2b (BatchNormalizati (None, 7, 7, 256)    1024        res4a_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_73 (Activation)      (None, 7, 7, 256)    0           bn4a_branch2b[0][0]              
-__________________________________________________________________________________________________
-res4a_branch2c (Conv2D)         (None, 7, 7, 1024)   263168      activation_73[0][0]              
-__________________________________________________________________________________________________
-res4a_branch1 (Conv2D)          (None, 7, 7, 1024)   525312      activation_71[0][0]              
-__________________________________________________________________________________________________
-bn4a_branch2c (BatchNormalizati (None, 7, 7, 1024)   4096        res4a_branch2c[0][0]             
-__________________________________________________________________________________________________
-bn4a_branch1 (BatchNormalizatio (None, 7, 7, 1024)   4096        res4a_branch1[0][0]              
-__________________________________________________________________________________________________
-add_24 (Add)                    (None, 7, 7, 1024)   0           bn4a_branch2c[0][0]              
-                                                                 bn4a_branch1[0][0]               
-__________________________________________________________________________________________________
-activation_74 (Activation)      (None, 7, 7, 1024)   0           add_24[0][0]                     
-__________________________________________________________________________________________________
-res4b_branch2a (Conv2D)         (None, 7, 7, 256)    262400      activation_74[0][0]              
-__________________________________________________________________________________________________
-bn4b_branch2a (BatchNormalizati (None, 7, 7, 256)    1024        res4b_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_75 (Activation)      (None, 7, 7, 256)    0           bn4b_branch2a[0][0]              
-__________________________________________________________________________________________________
-res4b_branch2b (Conv2D)         (None, 7, 7, 256)    590080      activation_75[0][0]              
-__________________________________________________________________________________________________
-bn4b_branch2b (BatchNormalizati (None, 7, 7, 256)    1024        res4b_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_76 (Activation)      (None, 7, 7, 256)    0           bn4b_branch2b[0][0]              
-__________________________________________________________________________________________________
-res4b_branch2c (Conv2D)         (None, 7, 7, 1024)   263168      activation_76[0][0]              
-__________________________________________________________________________________________________
-bn4b_branch2c (BatchNormalizati (None, 7, 7, 1024)   4096        res4b_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_25 (Add)                    (None, 7, 7, 1024)   0           bn4b_branch2c[0][0]              
-                                                                 activation_74[0][0]              
-__________________________________________________________________________________________________
-activation_77 (Activation)      (None, 7, 7, 1024)   0           add_25[0][0]                     
-__________________________________________________________________________________________________
-res4c_branch2a (Conv2D)         (None, 7, 7, 256)    262400      activation_77[0][0]              
-__________________________________________________________________________________________________
-bn4c_branch2a (BatchNormalizati (None, 7, 7, 256)    1024        res4c_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_78 (Activation)      (None, 7, 7, 256)    0           bn4c_branch2a[0][0]              
-__________________________________________________________________________________________________
-res4c_branch2b (Conv2D)         (None, 7, 7, 256)    590080      activation_78[0][0]              
-__________________________________________________________________________________________________
-bn4c_branch2b (BatchNormalizati (None, 7, 7, 256)    1024        res4c_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_79 (Activation)      (None, 7, 7, 256)    0           bn4c_branch2b[0][0]              
-__________________________________________________________________________________________________
-res4c_branch2c (Conv2D)         (None, 7, 7, 1024)   263168      activation_79[0][0]              
-__________________________________________________________________________________________________
-bn4c_branch2c (BatchNormalizati (None, 7, 7, 1024)   4096        res4c_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_26 (Add)                    (None, 7, 7, 1024)   0           bn4c_branch2c[0][0]              
-                                                                 activation_77[0][0]              
-__________________________________________________________________________________________________
-activation_80 (Activation)      (None, 7, 7, 1024)   0           add_26[0][0]                     
-__________________________________________________________________________________________________
-res4d_branch2a (Conv2D)         (None, 7, 7, 256)    262400      activation_80[0][0]              
-__________________________________________________________________________________________________
-bn4d_branch2a (BatchNormalizati (None, 7, 7, 256)    1024        res4d_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_81 (Activation)      (None, 7, 7, 256)    0           bn4d_branch2a[0][0]              
-__________________________________________________________________________________________________
-res4d_branch2b (Conv2D)         (None, 7, 7, 256)    590080      activation_81[0][0]              
-__________________________________________________________________________________________________
-bn4d_branch2b (BatchNormalizati (None, 7, 7, 256)    1024        res4d_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_82 (Activation)      (None, 7, 7, 256)    0           bn4d_branch2b[0][0]              
-__________________________________________________________________________________________________
-res4d_branch2c (Conv2D)         (None, 7, 7, 1024)   263168      activation_82[0][0]              
-__________________________________________________________________________________________________
-bn4d_branch2c (BatchNormalizati (None, 7, 7, 1024)   4096        res4d_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_27 (Add)                    (None, 7, 7, 1024)   0           bn4d_branch2c[0][0]              
-                                                                 activation_80[0][0]              
-__________________________________________________________________________________________________
-activation_83 (Activation)      (None, 7, 7, 1024)   0           add_27[0][0]                     
-__________________________________________________________________________________________________
-res4e_branch2a (Conv2D)         (None, 7, 7, 256)    262400      activation_83[0][0]              
-__________________________________________________________________________________________________
-bn4e_branch2a (BatchNormalizati (None, 7, 7, 256)    1024        res4e_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_84 (Activation)      (None, 7, 7, 256)    0           bn4e_branch2a[0][0]              
-__________________________________________________________________________________________________
-res4e_branch2b (Conv2D)         (None, 7, 7, 256)    590080      activation_84[0][0]              
-__________________________________________________________________________________________________
-bn4e_branch2b (BatchNormalizati (None, 7, 7, 256)    1024        res4e_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_85 (Activation)      (None, 7, 7, 256)    0           bn4e_branch2b[0][0]              
-__________________________________________________________________________________________________
-res4e_branch2c (Conv2D)         (None, 7, 7, 1024)   263168      activation_85[0][0]              
-__________________________________________________________________________________________________
-bn4e_branch2c (BatchNormalizati (None, 7, 7, 1024)   4096        res4e_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_28 (Add)                    (None, 7, 7, 1024)   0           bn4e_branch2c[0][0]              
-                                                                 activation_83[0][0]              
-__________________________________________________________________________________________________
-activation_86 (Activation)      (None, 7, 7, 1024)   0           add_28[0][0]                     
-__________________________________________________________________________________________________
-res4f_branch2a (Conv2D)         (None, 7, 7, 256)    262400      activation_86[0][0]              
-__________________________________________________________________________________________________
-bn4f_branch2a (BatchNormalizati (None, 7, 7, 256)    1024        res4f_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_87 (Activation)      (None, 7, 7, 256)    0           bn4f_branch2a[0][0]              
-__________________________________________________________________________________________________
-res4f_branch2b (Conv2D)         (None, 7, 7, 256)    590080      activation_87[0][0]              
-__________________________________________________________________________________________________
-bn4f_branch2b (BatchNormalizati (None, 7, 7, 256)    1024        res4f_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_88 (Activation)      (None, 7, 7, 256)    0           bn4f_branch2b[0][0]              
-__________________________________________________________________________________________________
-res4f_branch2c (Conv2D)         (None, 7, 7, 1024)   263168      activation_88[0][0]              
-__________________________________________________________________________________________________
-bn4f_branch2c (BatchNormalizati (None, 7, 7, 1024)   4096        res4f_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_29 (Add)                    (None, 7, 7, 1024)   0           bn4f_branch2c[0][0]              
-                                                                 activation_86[0][0]              
-__________________________________________________________________________________________________
-activation_89 (Activation)      (None, 7, 7, 1024)   0           add_29[0][0]                     
-__________________________________________________________________________________________________
-res5a_branch2a (Conv2D)         (None, 4, 4, 512)    524800      activation_89[0][0]              
-__________________________________________________________________________________________________
-bn5a_branch2a (BatchNormalizati (None, 4, 4, 512)    2048        res5a_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_90 (Activation)      (None, 4, 4, 512)    0           bn5a_branch2a[0][0]              
-__________________________________________________________________________________________________
-res5a_branch2b (Conv2D)         (None, 4, 4, 512)    2359808     activation_90[0][0]              
-__________________________________________________________________________________________________
-bn5a_branch2b (BatchNormalizati (None, 4, 4, 512)    2048        res5a_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_91 (Activation)      (None, 4, 4, 512)    0           bn5a_branch2b[0][0]              
-__________________________________________________________________________________________________
-res5a_branch2c (Conv2D)         (None, 4, 4, 2048)   1050624     activation_91[0][0]              
-__________________________________________________________________________________________________
-res5a_branch1 (Conv2D)          (None, 4, 4, 2048)   2099200     activation_89[0][0]              
-__________________________________________________________________________________________________
-bn5a_branch2c (BatchNormalizati (None, 4, 4, 2048)   8192        res5a_branch2c[0][0]             
-__________________________________________________________________________________________________
-bn5a_branch1 (BatchNormalizatio (None, 4, 4, 2048)   8192        res5a_branch1[0][0]              
-__________________________________________________________________________________________________
-add_30 (Add)                    (None, 4, 4, 2048)   0           bn5a_branch2c[0][0]              
-                                                                 bn5a_branch1[0][0]               
-__________________________________________________________________________________________________
-activation_92 (Activation)      (None, 4, 4, 2048)   0           add_30[0][0]                     
-__________________________________________________________________________________________________
-res5b_branch2a (Conv2D)         (None, 4, 4, 512)    1049088     activation_92[0][0]              
-__________________________________________________________________________________________________
-bn5b_branch2a (BatchNormalizati (None, 4, 4, 512)    2048        res5b_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_93 (Activation)      (None, 4, 4, 512)    0           bn5b_branch2a[0][0]              
-__________________________________________________________________________________________________
-res5b_branch2b (Conv2D)         (None, 4, 4, 512)    2359808     activation_93[0][0]              
-__________________________________________________________________________________________________
-bn5b_branch2b (BatchNormalizati (None, 4, 4, 512)    2048        res5b_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_94 (Activation)      (None, 4, 4, 512)    0           bn5b_branch2b[0][0]              
-__________________________________________________________________________________________________
-res5b_branch2c (Conv2D)         (None, 4, 4, 2048)   1050624     activation_94[0][0]              
-__________________________________________________________________________________________________
-bn5b_branch2c (BatchNormalizati (None, 4, 4, 2048)   8192        res5b_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_31 (Add)                    (None, 4, 4, 2048)   0           bn5b_branch2c[0][0]              
-                                                                 activation_92[0][0]              
-__________________________________________________________________________________________________
-activation_95 (Activation)      (None, 4, 4, 2048)   0           add_31[0][0]                     
-__________________________________________________________________________________________________
-res5c_branch2a (Conv2D)         (None, 4, 4, 512)    1049088     activation_95[0][0]              
-__________________________________________________________________________________________________
-bn5c_branch2a (BatchNormalizati (None, 4, 4, 512)    2048        res5c_branch2a[0][0]             
-__________________________________________________________________________________________________
-activation_96 (Activation)      (None, 4, 4, 512)    0           bn5c_branch2a[0][0]              
-__________________________________________________________________________________________________
-res5c_branch2b (Conv2D)         (None, 4, 4, 512)    2359808     activation_96[0][0]              
-__________________________________________________________________________________________________
-bn5c_branch2b (BatchNormalizati (None, 4, 4, 512)    2048        res5c_branch2b[0][0]             
-__________________________________________________________________________________________________
-activation_97 (Activation)      (None, 4, 4, 512)    0           bn5c_branch2b[0][0]              
-__________________________________________________________________________________________________
-res5c_branch2c (Conv2D)         (None, 4, 4, 2048)   1050624     activation_97[0][0]              
-__________________________________________________________________________________________________
-bn5c_branch2c (BatchNormalizati (None, 4, 4, 2048)   8192        res5c_branch2c[0][0]             
-__________________________________________________________________________________________________
-add_32 (Add)                    (None, 4, 4, 2048)   0           bn5c_branch2c[0][0]              
-                                                                 activation_95[0][0]              
-__________________________________________________________________________________________________
-activation_98 (Activation)      (None, 4, 4, 2048)   0           add_32[0][0]                     
-__________________________________________________________________________________________________
-global_average_pooling2d_2 (Glo (None, 2048)         0           activation_98[0][0]              
-__________________________________________________________________________________________________
-dropout_2 (Dropout)             (None, 2048)         0           global_average_pooling2d_2[0][0] 
-__________________________________________________________________________________________________
-dense_2 (Dense)                 (None, 6)            12294       dropout_2[0][0]                  
-==================================================================================================
-Total params: 23,600,006
-Trainable params: 23,546,886
-Non-trainable params: 53,120
-__________________________________________________________________________________________________
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="architecture-1-2">
-<h2>Architecture 1 &amp; 2<a class="headerlink" href="#architecture-1-2" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Tomato_model</span><span class="p">(</span><span class="n">input_shape</span><span class="p">):</span>
-  <span class="n">x_input</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
-  
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">128</span><span class="p">,(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x_input</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;softmax&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-  
-  <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">x_input</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">x</span><span class="p">)</span>
-  
-  <span class="k">return</span> <span class="n">model</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Tomato_model</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Logging before flag parsing goes to stderr.
-W0624 07:56:50.769881 140133674723200 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:74: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
-
-W0624 07:56:50.790379 140133674723200 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:517: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
-
-W0624 07:56:50.794633 140133674723200 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:4138: The name tf.random_uniform is deprecated. Please use tf.random.uniform instead.
-
-W0624 07:56:50.828991 140133674723200 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:174: The name tf.get_default_session is deprecated. Please use tf.compat.v1.get_default_session instead.
-
-W0624 07:56:50.830459 140133674723200 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:181: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
-
-W0624 07:56:51.381416 140133674723200 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:1834: The name tf.nn.fused_batch_norm is deprecated. Please use tf.compat.v1.nn.fused_batch_norm instead.
-
-W0624 07:56:51.462810 140133674723200 deprecation_wrapper.py:119] From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:3976: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-input_1 (InputLayer)         (None, 100, 100, 3)       0         
-_________________________________________________________________
-conv2d_1 (Conv2D)            (None, 100, 100, 128)     9728      
-_________________________________________________________________
-batch_normalization_1 (Batch (None, 100, 100, 128)     512       
-_________________________________________________________________
-max_pooling2d_1 (MaxPooling2 (None, 50, 50, 128)       0         
-_________________________________________________________________
-re_lu_1 (ReLU)               (None, 50, 50, 128)       0         
-_________________________________________________________________
-conv2d_2 (Conv2D)            (None, 50, 50, 64)        204864    
-_________________________________________________________________
-batch_normalization_2 (Batch (None, 50, 50, 64)        256       
-_________________________________________________________________
-max_pooling2d_2 (MaxPooling2 (None, 25, 25, 64)        0         
-_________________________________________________________________
-re_lu_2 (ReLU)               (None, 25, 25, 64)        0         
-_________________________________________________________________
-conv2d_3 (Conv2D)            (None, 25, 25, 64)        36928     
-_________________________________________________________________
-batch_normalization_3 (Batch (None, 25, 25, 64)        256       
-_________________________________________________________________
-max_pooling2d_3 (MaxPooling2 (None, 12, 12, 64)        0         
-_________________________________________________________________
-re_lu_3 (ReLU)               (None, 12, 12, 64)        0         
-_________________________________________________________________
-conv2d_4 (Conv2D)            (None, 12, 12, 32)        18464     
-_________________________________________________________________
-batch_normalization_4 (Batch (None, 12, 12, 32)        128       
-_________________________________________________________________
-max_pooling2d_4 (MaxPooling2 (None, 6, 6, 32)          0         
-_________________________________________________________________
-re_lu_4 (ReLU)               (None, 6, 6, 32)          0         
-_________________________________________________________________
-flatten_1 (Flatten)          (None, 1152)              0         
-_________________________________________________________________
-dense_1 (Dense)              (None, 6)                 6918      
-=================================================================
-Total params: 278,054
-Trainable params: 277,478
-Non-trainable params: 576
-_________________________________________________________________
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="architecture-3">
-<h2>Architecture 3<a class="headerlink" href="#architecture-3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Code khối bottleneck residual block</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bottleneck_res_block</span><span class="p">(</span><span class="n">block_input</span><span class="p">,</span><span class="n">factor</span><span class="p">):</span>
@@ -914,6 +336,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Đưa vào mô hình, tạo ra model hoàn chỉnh để train</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Tomato_model</span><span class="p">(</span><span class="n">input_shape</span><span class="p">):</span>
@@ -937,6 +362,9 @@ _________________________________________________________________
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Thông số của mô hình</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Tomato_model</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
@@ -1018,59 +446,11 @@ ________________________________________________________________________________
 </div>
 </div>
 </div>
-<div class="section" id="train">
-<h2>Train<a class="headerlink" href="#train" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">load_model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;trained_model/size_100_19-01/weights.100.04-0.90.h5&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:541: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:4432: The name tf.random_uniform is deprecated. Please use tf.random.uniform instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:66: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:190: The name tf.get_default_session is deprecated. Please use tf.compat.v1.get_default_session instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:197: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:203: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:207: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:216: The name tf.is_variable_initialized is deprecated. Please use tf.compat.v1.is_variable_initialized instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:223: The name tf.variables_initializer is deprecated. Please use tf.compat.v1.variables_initializer instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:2041: The name tf.nn.fused_batch_norm is deprecated. Please use tf.compat.v1.nn.fused_batch_norm instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:148: The name tf.placeholder_with_default is deprecated. Please use tf.compat.v1.placeholder_with_default instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:4267: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:3733: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
-Instructions for updating:
-Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:4271: The name tf.nn.avg_pool is deprecated. Please use tf.nn.avg_pool2d instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/optimizers.py:793: The name tf.train.Optimizer is deprecated. Please use tf.compat.v1.train.Optimizer instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:3576: The name tf.log is deprecated. Please use tf.math.log instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/ops/math_grad.py:1424: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
-Instructions for updating:
-Use tf.where in 2.0, which has the same broadcast rule as np.where
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:1033: The name tf.assign_add is deprecated. Please use tf.compat.v1.assign_add instead.
-
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/keras/backend/tensorflow_backend.py:1020: The name tf.assign is deprecated. Please use tf.compat.v1.assign instead.
-</pre></div>
-</div>
-</div>
-</div>
+<div class="section" id="huan-luyen-mo-hinh-vua-khoi-tao">
+<h2>Huấn luyện mô hình vừa khởi tạo<a class="headerlink" href="#huan-luyen-mo-hinh-vua-khoi-tao" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Khởi tạo optimizer, loss và metrics cho model, bắt đầu huấn luyện mô hình theo tỉ lệ train/valid là 8:2</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span> <span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span> <span class="o">=</span> <span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span><span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
@@ -1695,9 +1075,16 @@ Epoch 300/300
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Vẽ loss và accuracy của quá trình huấn luyện lên đồ thị để quan sát sự thay đổi và đưa ra đánh giá</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">savgol_filter</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Accuracy</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">#Hàm savgol_filter để làm đồ thị mượt hơn, có thể dùng cho đẹp</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">savgol_filter</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">log</span> <span class="k">as</span> <span class="n">ln</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">log10</span> <span class="k">as</span> <span class="n">log</span>
 <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">history</span>
@@ -1715,12 +1102,15 @@ Epoch 300/300
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/training_23_0.png" src="../../_images/training_23_0.png" />
+<img alt="../../_images/training_20_0.png" src="../../_images/training_20_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># summarize history for loss</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Loss</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># summarize history for loss</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">299</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">299</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model loss&#39;</span><span class="p">)</span>
@@ -1732,521 +1122,12 @@ Epoch 300/300
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/training_24_0.png" src="../../_images/training_24_0.png" />
+<img alt="../../_images/training_21_0.png" src="../../_images/training_21_0.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">load_model</span>
-<span class="n">mtest</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;trained_model/size_100_18-02/weights.100.150-1.00.h5&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/ops/init_ops.py:97: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
-Instructions for updating:
-Call initializer instance with the dtype argument instead of passing it to the constructor
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/ops/init_ops.py:97: calling Zeros.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
-Instructions for updating:
-Call initializer instance with the dtype argument instead of passing it to the constructor
-WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/ops/init_ops.py:97: calling Ones.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
-Instructions for updating:
-Call initializer instance with the dtype argument instead of passing it to the constructor
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mtest</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_train</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1000</span><span class="p">],</span><span class="n">y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1000</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1000/1000 [==============================] - 0s 435us/sample - loss: 0.0047 - acc: 0.9990
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.004738807330722921, 0.999]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">imshow</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">keras</span>
-<span class="kn">from</span> <span class="nn">keras.preprocessing</span> <span class="kn">import</span> <span class="n">image</span>
-<span class="kn">from</span> <span class="nn">keras.applications.imagenet_utils</span> <span class="kn">import</span> <span class="n">decode_predictions</span><span class="p">,</span> <span class="n">preprocess_input</span>
-<span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Model</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">VGG16</span><span class="p">(</span><span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="k">def</span> <span class="nf">load_image</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">load_img</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">target_size</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">input_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">img_to_array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">preprocess_input</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">x</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;tsne/loai1/IMG_scale87.jpg&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;shape of x: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;data type: &quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="c1"># print out the </span>
-<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="n">decode_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;predicted </span><span class="si">%s</span><span class="s2"> with probability </span><span class="si">%0.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">prob</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shape of x:  (1, 224, 224, 3)
-data type:  float32
-predicted hip with probability 0.173
-predicted ping-pong_ball with probability 0.087
-predicted joystick with probability 0.086
-predicted croquet_ball with probability 0.057
-predicted maraca with probability 0.052
-</pre></div>
-</div>
-<img alt="../../_images/training_31_1.png" src="../../_images/training_31_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">feat_extractor</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s2">&quot;fc2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
-<span class="n">feat_extractor</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model_2&quot;
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-input_2 (InputLayer)         (None, 224, 224, 3)       0         
-_________________________________________________________________
-block1_conv1 (Conv2D)        (None, 224, 224, 64)      1792      
-_________________________________________________________________
-block1_conv2 (Conv2D)        (None, 224, 224, 64)      36928     
-_________________________________________________________________
-block1_pool (MaxPooling2D)   (None, 112, 112, 64)      0         
-_________________________________________________________________
-block2_conv1 (Conv2D)        (None, 112, 112, 128)     73856     
-_________________________________________________________________
-block2_conv2 (Conv2D)        (None, 112, 112, 128)     147584    
-_________________________________________________________________
-block2_pool (MaxPooling2D)   (None, 56, 56, 128)       0         
-_________________________________________________________________
-block3_conv1 (Conv2D)        (None, 56, 56, 256)       295168    
-_________________________________________________________________
-block3_conv2 (Conv2D)        (None, 56, 56, 256)       590080    
-_________________________________________________________________
-block3_conv3 (Conv2D)        (None, 56, 56, 256)       590080    
-_________________________________________________________________
-block3_pool (MaxPooling2D)   (None, 28, 28, 256)       0         
-_________________________________________________________________
-block4_conv1 (Conv2D)        (None, 28, 28, 512)       1180160   
-_________________________________________________________________
-block4_conv2 (Conv2D)        (None, 28, 28, 512)       2359808   
-_________________________________________________________________
-block4_conv3 (Conv2D)        (None, 28, 28, 512)       2359808   
-_________________________________________________________________
-block4_pool (MaxPooling2D)   (None, 14, 14, 512)       0         
-_________________________________________________________________
-block5_conv1 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_conv2 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_conv3 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_pool (MaxPooling2D)   (None, 7, 7, 512)         0         
-_________________________________________________________________
-flatten (Flatten)            (None, 25088)             0         
-_________________________________________________________________
-fc1 (Dense)                  (None, 4096)              102764544 
-_________________________________________________________________
-fc2 (Dense)                  (None, 4096)              16781312  
-=================================================================
-Total params: 134,260,544
-Trainable params: 134,260,544
-Non-trainable params: 0
-_________________________________________________________________
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;tsne/loai1/IMG_scale87.jpg&quot;</span><span class="p">)</span>
-<span class="n">feat</span> <span class="o">=</span> <span class="n">feat_extractor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">feat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fdc0a741978&gt;]
-</pre></div>
-</div>
-<img alt="../../_images/training_33_1.png" src="../../_images/training_33_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="n">images_path</span> <span class="o">=</span> <span class="s1">&#39;tsne&#39;</span>
-<span class="n">image_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpeg&#39;</span><span class="p">]</span>   <span class="c1"># case-insensitive (upper/lower doesn&#39;t matter)</span>
-<span class="n">max_num_images</span> <span class="o">=</span> <span class="mi">10000</span>
-
-<span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">dp</span><span class="p">,</span> <span class="n">dn</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">images_path</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">image_extensions</span><span class="p">]</span>
-<span class="k">if</span> <span class="n">max_num_images</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">):</span>
-    <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)),</span> <span class="n">max_num_images</span><span class="p">))]</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;keeping </span><span class="si">%d</span><span class="s2"> images to analyze&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>keeping 55 images to analyze
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
-
-
-<span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">image_path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">images</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">500</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
-        <span class="n">elap</span> <span class="o">=</span> <span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;analyzing image </span><span class="si">%d</span><span class="s2"> / </span><span class="si">%d</span><span class="s2">. Time: </span><span class="si">%4.4f</span><span class="s2"> seconds.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">),</span><span class="n">elap</span><span class="p">))</span>
-        <span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
-    <span class="n">img</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">load_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">);</span>
-    <span class="n">feat</span> <span class="o">=</span> <span class="n">feat_extractor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;finished extracting features for </span><span class="si">%d</span><span class="s1"> images&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>analyzing image 0 / 55. Time: 0.0002 seconds.
-finished extracting features for 55 images
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-
-<span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-<span class="n">pca_features</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
-
-<span class="c1"># grab a random query image</span>
-<span class="n">query_image_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
-
-<span class="c1"># let&#39;s display the image</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">load_img</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">query_image_idx</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fdc0a6c8a58&gt;
-</pre></div>
-</div>
-<img alt="../../_images/training_37_1.png" src="../../_images/training_37_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
-
-<span class="n">similar_idx</span> <span class="o">=</span> <span class="p">[</span> <span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">pca_features</span><span class="p">[</span><span class="n">query_image_idx</span><span class="p">],</span> <span class="n">feat</span><span class="p">)</span> <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">pca_features</span> <span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">idx_closest</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">similar_idx</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">similar_idx</span><span class="p">[</span><span class="n">k</span><span class="p">])[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">thumbs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">idx_closest</span><span class="p">:</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">load_img</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">img</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="mi">100</span><span class="p">))</span>
-    <span class="n">thumbs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-
-<span class="c1"># concatenate the images into a single image</span>
-<span class="n">concat_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thumbs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># show the image</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">concat_image</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fdc0a6a4c18&gt;
-</pre></div>
-</div>
-<img alt="../../_images/training_40_1.png" src="../../_images/training_40_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="k">def</span> <span class="nf">get_closest_images</span><span class="p">(</span><span class="n">query_image_idx</span><span class="p">,</span> <span class="n">num_results</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
-    <span class="n">distances</span> <span class="o">=</span> <span class="p">[</span> <span class="n">distance</span><span class="o">.</span><span class="n">cosine</span><span class="p">(</span><span class="n">pca_features</span><span class="p">[</span><span class="n">query_image_idx</span><span class="p">],</span> <span class="n">feat</span><span class="p">)</span> <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="n">pca_features</span> <span class="p">]</span>
-    <span class="n">idx_closest</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">distances</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">distances</span><span class="p">[</span><span class="n">k</span><span class="p">])[</span><span class="mi">1</span><span class="p">:</span><span class="n">num_results</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">idx_closest</span>
-
-<span class="k">def</span> <span class="nf">get_concatenated_images</span><span class="p">(</span><span class="n">indexes</span><span class="p">,</span> <span class="n">thumb_height</span><span class="p">):</span>
-    <span class="n">thumbs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">indexes</span><span class="p">:</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">load_img</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">thumb_height</span> <span class="o">/</span> <span class="n">img</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="n">thumb_height</span><span class="p">))</span>
-        <span class="n">thumbs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-    <span class="n">concat_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">thumbs</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">concat_image</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">query_image_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
-<span class="n">idx_closest</span> <span class="o">=</span> <span class="n">get_closest_images</span><span class="p">(</span><span class="n">query_image_idx</span><span class="p">)</span>
-<span class="n">query_image</span> <span class="o">=</span> <span class="n">get_concatenated_images</span><span class="p">([</span><span class="n">query_image_idx</span><span class="p">],</span> <span class="mi">300</span><span class="p">)</span>
-<span class="n">results_image</span> <span class="o">=</span> <span class="n">get_concatenated_images</span><span class="p">(</span><span class="n">idx_closest</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-
-<span class="c1"># display the query image</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">query_image</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;query image (</span><span class="si">%d</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">query_image_idx</span><span class="p">)</span>
-
-<span class="c1"># display the resulting images</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">results_image</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;result images&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;result images&#39;)
-</pre></div>
-</div>
-<img alt="../../_images/training_42_1.png" src="../../_images/training_42_1.png" />
-<img alt="../../_images/training_42_2.png" src="../../_images/training_42_2.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">query_image_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">*</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
-<span class="n">idx_closest</span> <span class="o">=</span> <span class="n">get_closest_images</span><span class="p">(</span><span class="n">query_image_idx</span><span class="p">)</span>
-<span class="n">query_image</span> <span class="o">=</span> <span class="n">get_concatenated_images</span><span class="p">([</span><span class="n">query_image_idx</span><span class="p">],</span> <span class="mi">300</span><span class="p">)</span>
-<span class="n">results_image</span> <span class="o">=</span> <span class="n">get_concatenated_images</span><span class="p">(</span><span class="n">idx_closest</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-
-<span class="c1"># display the query image</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">query_image</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;query image (</span><span class="si">%d</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">query_image_idx</span><span class="p">)</span>
-
-<span class="c1"># display the resulting images</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">results_image</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;result images&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;result images&#39;)
-</pre></div>
-</div>
-<img alt="../../_images/training_43_1.png" src="../../_images/training_43_1.png" />
-<img alt="../../_images/training_43_2.png" src="../../_images/training_43_2.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
-
-<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">([</span><span class="n">images</span><span class="p">,</span> <span class="n">pca_features</span><span class="p">,</span> <span class="n">pca</span><span class="p">],</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;features_tomato.p&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">images</span><span class="p">,</span> <span class="n">pca_features</span><span class="p">,</span> <span class="n">pca</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;features_tomato.p&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">pca_features</span><span class="p">))[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;image: </span><span class="si">%s</span><span class="s2">, features: </span><span class="si">%0.2f</span><span class="s2">,</span><span class="si">%0.2f</span><span class="s2">,</span><span class="si">%0.2f</span><span class="s2">,</span><span class="si">%0.2f</span><span class="s2">... &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">f</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>image: tsne/loai3/IMG_scale76.jpg, features: 16.46,13.55,-14.76,2.34... 
-image: tsne/loai3/IMG_scale72.jpg, features: 12.41,5.58,-17.54,-0.79... 
-image: tsne/loai3/IMG_scale71.jpg, features: 17.19,13.53,-26.76,1.98... 
-image: tsne/loai3/IMG_scale75.jpg, features: 13.01,16.37,-18.79,-7.08... 
-image: tsne/loai3/IMG_scale73.jpg, features: 6.84,17.16,-26.78,-9.79... 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num_images_to_plot</span> <span class="o">=</span> <span class="mi">55</span>
-
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num_images_to_plot</span><span class="p">:</span>
-    <span class="n">sort_order</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)),</span> <span class="n">num_images_to_plot</span><span class="p">))</span>
-    <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sort_order</span><span class="p">]</span>
-    <span class="n">pca_features</span> <span class="o">=</span> <span class="p">[</span><span class="n">pca_features</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sort_order</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pca_features</span><span class="p">)</span>
-<span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[t-SNE] Computing 54 nearest neighbors...
-[t-SNE] Indexed 55 samples in 0.000s...
-[t-SNE] Computed neighbors for 55 samples in 0.002s...
-[t-SNE] Computed conditional probabilities for sample 55 / 55
-[t-SNE] Mean sigma: 17.300094
-[t-SNE] Computed conditional probabilities in 0.006s
-[t-SNE] Iteration 50: error = 53.6211166, gradient norm = 0.5790135 (50 iterations in 0.019s)
-[t-SNE] Iteration 100: error = 50.8614197, gradient norm = 0.5376705 (50 iterations in 0.015s)
-[t-SNE] Iteration 150: error = 54.2088852, gradient norm = 0.5612161 (50 iterations in 0.015s)
-[t-SNE] Iteration 200: error = 53.7714767, gradient norm = 0.5465050 (50 iterations in 0.015s)
-[t-SNE] Iteration 250: error = 50.1029892, gradient norm = 0.5673741 (50 iterations in 0.015s)
-[t-SNE] KL divergence after 250 iterations with early exaggeration: 50.102989
-[t-SNE] Iteration 300: error = 0.9312882, gradient norm = 0.0032580 (50 iterations in 0.014s)
-[t-SNE] Iteration 350: error = 0.6821914, gradient norm = 0.0038423 (50 iterations in 0.014s)
-[t-SNE] Iteration 400: error = 0.8518797, gradient norm = 0.0013635 (50 iterations in 0.014s)
-[t-SNE] Iteration 450: error = 0.7043378, gradient norm = 0.0006281 (50 iterations in 0.015s)
-[t-SNE] Iteration 500: error = 0.4799414, gradient norm = 0.0015464 (50 iterations in 0.015s)
-[t-SNE] Iteration 550: error = 0.4121127, gradient norm = 0.0003299 (50 iterations in 0.014s)
-[t-SNE] Iteration 600: error = 0.3636744, gradient norm = 0.0005087 (50 iterations in 0.014s)
-[t-SNE] Iteration 650: error = 0.3027831, gradient norm = 0.0003183 (50 iterations in 0.019s)
-[t-SNE] Iteration 700: error = 0.2916746, gradient norm = 0.0001724 (50 iterations in 0.014s)
-[t-SNE] Iteration 750: error = 0.2757412, gradient norm = 0.0001366 (50 iterations in 0.013s)
-[t-SNE] Iteration 800: error = 0.2691515, gradient norm = 0.0000636 (50 iterations in 0.014s)
-[t-SNE] Iteration 850: error = 0.2683721, gradient norm = 0.0000291 (50 iterations in 0.014s)
-[t-SNE] Iteration 900: error = 0.2675740, gradient norm = 0.0000241 (50 iterations in 0.014s)
-[t-SNE] Iteration 950: error = 0.2666914, gradient norm = 0.0000348 (50 iterations in 0.014s)
-[t-SNE] Iteration 1000: error = 0.2634952, gradient norm = 0.0000633 (50 iterations in 0.014s)
-[t-SNE] KL divergence after 1000 iterations: 0.263495
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span> <span class="o">=</span> <span class="n">tsne</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">tsne</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">tx</span> <span class="o">=</span> <span class="p">(</span><span class="n">tx</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">tx</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">tx</span><span class="p">))</span>
-<span class="n">ty</span> <span class="o">=</span> <span class="p">(</span><span class="n">ty</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">ty</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">ty</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">ty</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">width</span> <span class="o">=</span> <span class="mi">640</span>
-<span class="n">height</span> <span class="o">=</span> <span class="mi">640</span>
-<span class="n">max_dim</span> <span class="o">=</span> <span class="mi">100</span>
-
-<span class="n">full_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RGBA&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">):</span>
-    <span class="n">tile</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-    <span class="n">rs</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">tile</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="n">max_dim</span><span class="p">,</span> <span class="n">tile</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="n">max_dim</span><span class="p">)</span>
-    <span class="n">tile</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="n">rs</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="n">rs</span><span class="p">)),</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">)</span>
-    <span class="n">full_image</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">tile</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">((</span><span class="n">width</span><span class="o">-</span><span class="n">max_dim</span><span class="p">)</span><span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">((</span><span class="n">height</span><span class="o">-</span><span class="n">max_dim</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">)),</span> <span class="n">mask</span><span class="o">=</span><span class="n">tile</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGBA&#39;</span><span class="p">))</span>
-
-<span class="n">matplotlib</span><span class="o">.</span><span class="n">pyplot</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
-<span class="n">imshow</span><span class="p">(</span><span class="n">full_image</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7fdc0a581dd8&gt;
-</pre></div>
-</div>
-<img alt="../../_images/training_49_1.png" src="../../_images/training_49_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">full_image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;tSNE.png&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
+<ul class="simple">
+<li><p>Sau khi huấn luyện và đánh giá xong, chọn mô hình tốt nhất để triển khai lên hệ thống phân loại, model file sẽ có dạng <weight>.h5</p></li>
+</ul>
 </div>
 </div>
 
