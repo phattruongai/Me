@@ -54,7 +54,7 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Pretrain model" href="training.html" />
+    <link rel="prev" title="Huấn luyện" href="training.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -102,7 +102,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="training.html">
-   Pretrain model
+   Huấn luyện
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -171,6 +171,30 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cai-dat">
+   1. Cài đặt:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chay-code-thoi-gian-thuc">
+   2. Chạy code thời gian thực:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#giai-thich-code">
+   3. Giải thích code:
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
         </div>
     </div>
 </div>
@@ -184,6 +208,98 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Hệ thống mình deploy lên là Raspberry Pi 3B+ và đạt được FPS vào khoảng 7FPS khi chạy thời gian thực</p>
+</div>
+<div class="section" id="cai-dat">
+<h2>1. Cài đặt:<a class="headerlink" href="#cai-dat" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Sử dụng lại repo Github đã clone lúc <a class="reference internal" href="dataprepare.html"><span class="doc std std-doc">chuẩn bị dữ liệu</span></a></p></li>
+</ul>
+<p>Repo: <code class="docutils literal notranslate"><span class="pre">https://github.com/phattruongai/Tomato-classification-system.git</span></code></p>
+<p>Chuyển đến thư mục <code class="docutils literal notranslate"><span class="pre">Classification</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Classification</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Kết nối USB webcam tới máy tính hoặc Raspberry Pi</p></li>
+</ul>
+<p><img alt="" src="../../_images/pi.jpg" /></p>
+</div>
+<div class="section" id="chay-code-thoi-gian-thuc">
+<h2>2. Chạy code thời gian thực:<a class="headerlink" href="#chay-code-thoi-gian-thuc" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Chạy:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">test_script</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">workingdir</span> <span class="o">.</span> <span class="o">--</span><span class="n">modelpath</span> <span class="o">&lt;</span><span class="n">your_model_path</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Kết quả sẽ được hiển thị lên màn hình như hình dưới:</p></li>
+</ul>
+<p><img alt="" src="../../_images/display.png" /></p>
+</div>
+<div class="section" id="giai-thich-code">
+<h2>3. Giải thích code:<a class="headerlink" href="#giai-thich-code" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Load model và lấy session hiện tại:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#change dir and load model</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">workingdir</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">modelpath</span><span class="p">)</span> 
+<span class="c1">#get session of model to use in gradCAM computing</span>
+<span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Gọi hàm <code class="docutils literal notranslate"><span class="pre">test_vid</span></code> với param = “camera” để chạy real time với các frame lấy được từ webcam</p></li>
+</ul>
+<blockquote>
+<div><p>Hàm <code class="docutils literal notranslate"><span class="pre">test_vid</span></code> nằm trong file <code class="docutils literal notranslate"><span class="pre">utils.py</span></code></p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#run real time process</span>
+<span class="n">test_vid</span><span class="p">(</span><span class="s2">&quot;camera&quot;</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">sess</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><p>Hàm <code class="docutils literal notranslate"><span class="pre">test_vid</span></code> bao gồm các công việc:</p>
+<ul class="simple">
+<li><p>Khởi tạo static graph cho việc tính toán grad-CAM:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">arg</span> <span class="o">=</span> <span class="n">grad_cam_generate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="s2">&quot;add_2&quot;</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Đọc frame từ webcam, resize và normalize:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read frame from camera</span>
+<span class="n">_</span><span class="p">,</span><span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1"># Preprocessing</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="mi">40</span><span class="p">:</span><span class="mi">410</span><span class="p">,</span><span class="mi">140</span><span class="p">:</span><span class="mi">500</span><span class="p">,:],(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span><span class="o">/</span><span class="mf">255.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Chạy model:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let model do the prediction</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+<span class="n">predicted_class</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;     &quot;</span><span class="p">,</span><span class="n">predicted_class</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Dùng output của model để tính grad-CAM, tạo heatmap:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate the grad-CAM heatmap to visualize</span>
+<span class="n">cam</span><span class="p">,</span><span class="n">heatmap</span><span class="p">,</span><span class="n">full_img</span> <span class="o">=</span> <span class="n">grad_cam</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">predicted_class</span><span class="p">,</span><span class="n">sess</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
+<span class="n">font</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">full_img</span><span class="p">,</span><span class="n">cam</span><span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># create 2 views, 1 for original image, 1 for images with grad-CAM heatmap</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">disp_size</span><span class="p">)</span> <span class="c1"># resize to the fixed size to visualize</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="c1"># mark the finishing time</span>
+<span class="n">fps</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="c1"># compute FPS</span>
+</pre></div>
+</div>
+</li>
+</ul>
 </div>
 </div>
 
@@ -212,7 +328,7 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="training.html" title="previous page">Pretrain model</a>
+    <a class='left-prev' id="prev-link" href="training.html" title="previous page">Huấn luyện</a>
 
         </div>
         
