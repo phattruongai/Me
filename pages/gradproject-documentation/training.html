@@ -1,0 +1,1188 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Huấn luyện &#8212; Phat Truong</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.37f24b989f4638ff9c27c22dc7559d4f.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Triển khai" href="deploy.html" />
+    <link rel="prev" title="Chuẩn bị dữ liệu" href="dataprepare.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.jpg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Phat Truong</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  GRADUATION PROJECT DOCUMENTATION
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="overview.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dataprepare.html">
+   Chuẩn bị dữ liệu
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Huấn luyện
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="deploy.html">
+   Triển khai
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/pages/gradproject-documentation/training.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/pages/gradproject-documentation/training.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cai-dat-moi-truong">
+   Cài đặt môi trường
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tao-kien-truc-cua-mo-hinh-cnn">
+   Tạo kiến trúc của mô hình CNN
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#huan-luyen-mo-hinh-vua-khoi-tao">
+   Huấn luyện mô hình vừa khởi tạo
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="huan-luyen">
+<h1>Huấn luyện<a class="headerlink" href="#huan-luyen" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cai-dat-moi-truong">
+<h2>Cài đặt môi trường<a class="headerlink" href="#cai-dat-moi-truong" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Môi trường mình dùng là Google Colabotory free, cũng đủ dùng với dataset nhỏ và thời gian train ngắn như bài này.
+Sau khi làm xong các bước chuẩn bị dữ liệu, hãy copy file <code class="docutils literal notranslate"><span class="pre">&lt;dataset&gt;.h5</span></code> lên Google Drive, tạo một notebook google colabotory và bắt đầu làm các bước trong notebook dưới đây</p>
+</div>
+<ul class="simple">
+<li><p>Gắn drive làm ổ cứng, nơi lưu dữ liệu của notebook . Hiện tại thì đã có giao diện ở thanh công cụ bên tay trái screen, nếu thích trực quan thì các bạn hãy dùng thanh công cụ đó thay cho các dòng code mount disk bên dưới.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mounted at /content/drive
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Import các thư viện cần thiết, chuyển working directory sang nơi chứa file <dataset>.h5</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">keras</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;./drive/My Drive/GG_colab/CDTproject&#39;</span><span class="p">)</span> <span class="c1">#hãy thay đổi theo nơi lưu &lt;dataset&gt;.h5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;2.4.1&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Load dataset từ file h5py</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s2">&quot;train_data_100_18-02.h5&quot;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">F</span><span class="p">:</span>
+    <span class="n">x_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;x_train&quot;</span><span class="p">))</span>
+    <span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;y_train&quot;</span><span class="p">))</span>
+    <span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;x_test&quot;</span><span class="p">))</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;y_test&quot;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2689, 100, 100, 3) (2689, 6)
+(350, 100, 100, 3) (350, 6)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="tao-kien-truc-cua-mo-hinh-cnn">
+<h2>Tạo kiến trúc của mô hình CNN<a class="headerlink" href="#tao-kien-truc-cua-mo-hinh-cnn" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ở đây dùng các layer Convolutional bình thường kết hợp với Bottleneck residual block của MobileNet.</p>
+</div>
+<ul class="simple">
+<li><p>Code khối bottleneck residual block</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bottleneck_res_block</span><span class="p">(</span><span class="n">block_input</span><span class="p">,</span><span class="n">factor</span><span class="p">):</span>
+  <span class="c1">###expansion convolution layer</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">block_input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))(</span><span class="n">block_input</span><span class="p">)</span> 
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(</span><span class="n">max_value</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  
+  <span class="c1">###depthwise convolution layer</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">DepthwiseConv2D</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(</span><span class="n">max_value</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  
+  <span class="c1">###projection convolution layer</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="nb">int</span><span class="p">(</span><span class="n">factor</span><span class="p">)),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+  <span class="c1">#x = keras.layers.ReLU(max_value = 6)(x)</span>
+  
+  <span class="c1">#Residual connect</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Add</span><span class="p">()([</span><span class="n">x</span><span class="p">,</span><span class="n">block_input</span><span class="p">])</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">rate</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Đưa vào mô hình, tạo ra model hoàn chỉnh để train</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Tomato_model</span><span class="p">(</span><span class="n">input_shape</span><span class="p">):</span>
+  <span class="n">x_input</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+  
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">padding</span> <span class="o">=</span> <span class="s1">&#39;same&#39;</span><span class="p">)(</span><span class="n">x_input</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(</span><span class="n">max_value</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">rate</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">bottleneck_res_block</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">AveragePooling2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">bottleneck_res_block</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling2D</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="n">activation</span> <span class="o">=</span> <span class="s1">&#39;softmax&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+  
+  <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">x_input</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">x</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Thông số của mô hình</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Tomato_model</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model&quot;
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            [(None, 100, 100, 3) 0                                            
+__________________________________________________________________________________________________
+conv2d (Conv2D)                 (None, 100, 100, 32) 128         input_1[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization (BatchNorma (None, 100, 100, 32) 128         conv2d[0][0]                     
+__________________________________________________________________________________________________
+max_pooling2d (MaxPooling2D)    (None, 50, 50, 32)   0           batch_normalization[0][0]        
+__________________________________________________________________________________________________
+re_lu (ReLU)                    (None, 50, 50, 32)   0           max_pooling2d[0][0]              
+__________________________________________________________________________________________________
+dropout (Dropout)               (None, 50, 50, 32)   0           re_lu[0][0]                      
+__________________________________________________________________________________________________
+conv2d_1 (Conv2D)               (None, 50, 50, 64)   2112        dropout[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_1 (BatchNor (None, 50, 50, 64)   256         conv2d_1[0][0]                   
+__________________________________________________________________________________________________
+re_lu_1 (ReLU)                  (None, 50, 50, 64)   0           batch_normalization_1[0][0]      
+__________________________________________________________________________________________________
+depthwise_conv2d (DepthwiseConv (None, 50, 50, 64)   640         re_lu_1[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_2 (BatchNor (None, 50, 50, 64)   256         depthwise_conv2d[0][0]           
+__________________________________________________________________________________________________
+re_lu_2 (ReLU)                  (None, 50, 50, 64)   0           batch_normalization_2[0][0]      
+__________________________________________________________________________________________________
+conv2d_2 (Conv2D)               (None, 50, 50, 32)   2080        re_lu_2[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_3 (BatchNor (None, 50, 50, 32)   128         conv2d_2[0][0]                   
+__________________________________________________________________________________________________
+add (Add)                       (None, 50, 50, 32)   0           batch_normalization_3[0][0]      
+                                                                 dropout[0][0]                    
+__________________________________________________________________________________________________
+dropout_1 (Dropout)             (None, 50, 50, 32)   0           add[0][0]                        
+__________________________________________________________________________________________________
+average_pooling2d (AveragePooli (None, 25, 25, 32)   0           dropout_1[0][0]                  
+__________________________________________________________________________________________________
+conv2d_3 (Conv2D)               (None, 25, 25, 64)   2112        average_pooling2d[0][0]          
+__________________________________________________________________________________________________
+batch_normalization_4 (BatchNor (None, 25, 25, 64)   256         conv2d_3[0][0]                   
+__________________________________________________________________________________________________
+re_lu_3 (ReLU)                  (None, 25, 25, 64)   0           batch_normalization_4[0][0]      
+__________________________________________________________________________________________________
+depthwise_conv2d_1 (DepthwiseCo (None, 25, 25, 64)   640         re_lu_3[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_5 (BatchNor (None, 25, 25, 64)   256         depthwise_conv2d_1[0][0]         
+__________________________________________________________________________________________________
+re_lu_4 (ReLU)                  (None, 25, 25, 64)   0           batch_normalization_5[0][0]      
+__________________________________________________________________________________________________
+conv2d_4 (Conv2D)               (None, 25, 25, 32)   2080        re_lu_4[0][0]                    
+__________________________________________________________________________________________________
+batch_normalization_6 (BatchNor (None, 25, 25, 32)   128         conv2d_4[0][0]                   
+__________________________________________________________________________________________________
+add_1 (Add)                     (None, 25, 25, 32)   0           batch_normalization_6[0][0]      
+                                                                 average_pooling2d[0][0]          
+__________________________________________________________________________________________________
+dropout_2 (Dropout)             (None, 25, 25, 32)   0           add_1[0][0]                      
+__________________________________________________________________________________________________
+global_average_pooling2d (Globa (None, 32)           0           dropout_2[0][0]                  
+__________________________________________________________________________________________________
+dense (Dense)                   (None, 6)            198         global_average_pooling2d[0][0]   
+==================================================================================================
+Total params: 11,398
+Trainable params: 10,694
+Non-trainable params: 704
+__________________________________________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="huan-luyen-mo-hinh-vua-khoi-tao">
+<h2>Huấn luyện mô hình vừa khởi tạo<a class="headerlink" href="#huan-luyen-mo-hinh-vua-khoi-tao" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Khởi tạo optimizer, loss và metrics cho model, bắt đầu huấn luyện mô hình theo tỉ lệ train/valid là 8:2</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span> <span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span> <span class="o">=</span> <span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span><span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#filepath=&quot;trained_model/size_100_18-02/weights.100.{epoch:02d}-{val_acc:.2f}.h5&quot;</span>
+<span class="c1">#checkpoint = keras.callbacks.ModelCheckpoint(filepath, monitor=&#39;val_acc&#39;, verbose=0, mode=&#39;auto&#39;)</span>
+<span class="c1">#callbacks_list = [checkpoint]</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="c1">#,callbacks = callbacks_list)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/300
+60/60 [==============================] - 36s 43ms/step - loss: 1.3388 - accuracy: 0.5213 - val_loss: 1.8314 - val_accuracy: 0.1814
+Epoch 2/300
+60/60 [==============================] - 2s 31ms/step - loss: 0.5242 - accuracy: 0.8367 - val_loss: 1.9896 - val_accuracy: 0.1392
+Epoch 3/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.4235 - accuracy: 0.8678 - val_loss: 2.3452 - val_accuracy: 0.2785
+Epoch 4/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.3040 - accuracy: 0.9059 - val_loss: 3.0306 - val_accuracy: 0.1730
+Epoch 5/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.2901 - accuracy: 0.9038 - val_loss: 3.3912 - val_accuracy: 0.1688
+Epoch 6/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.2203 - accuracy: 0.9297 - val_loss: 3.3681 - val_accuracy: 0.2384
+Epoch 7/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1919 - accuracy: 0.9476 - val_loss: 1.9309 - val_accuracy: 0.4873
+Epoch 8/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1990 - accuracy: 0.9358 - val_loss: 1.1571 - val_accuracy: 0.5992
+Epoch 9/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.2124 - accuracy: 0.9262 - val_loss: 0.6477 - val_accuracy: 0.7637
+Epoch 10/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.2031 - accuracy: 0.9361 - val_loss: 0.3785 - val_accuracy: 0.8629
+Epoch 11/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1679 - accuracy: 0.9417 - val_loss: 0.2401 - val_accuracy: 0.9051
+Epoch 12/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1325 - accuracy: 0.9608 - val_loss: 0.1571 - val_accuracy: 0.9473
+Epoch 13/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1176 - accuracy: 0.9706 - val_loss: 0.1611 - val_accuracy: 0.9473
+Epoch 14/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1348 - accuracy: 0.9587 - val_loss: 0.2030 - val_accuracy: 0.9262
+Epoch 15/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1129 - accuracy: 0.9654 - val_loss: 0.2586 - val_accuracy: 0.9030
+Epoch 16/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1093 - accuracy: 0.9560 - val_loss: 0.1815 - val_accuracy: 0.9304
+Epoch 17/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1079 - accuracy: 0.9616 - val_loss: 0.1643 - val_accuracy: 0.9557
+Epoch 18/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1153 - accuracy: 0.9602 - val_loss: 0.1125 - val_accuracy: 0.9641
+Epoch 19/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1002 - accuracy: 0.9646 - val_loss: 0.1158 - val_accuracy: 0.9494
+Epoch 20/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1224 - accuracy: 0.9652 - val_loss: 0.1752 - val_accuracy: 0.9304
+Epoch 21/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1736 - accuracy: 0.9418 - val_loss: 0.2401 - val_accuracy: 0.9114
+Epoch 22/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.1158 - accuracy: 0.9621 - val_loss: 0.1573 - val_accuracy: 0.9325
+Epoch 23/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1210 - accuracy: 0.9585 - val_loss: 0.0907 - val_accuracy: 0.9705
+Epoch 24/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0944 - accuracy: 0.9613 - val_loss: 0.1271 - val_accuracy: 0.9473
+Epoch 25/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0843 - accuracy: 0.9745 - val_loss: 0.1214 - val_accuracy: 0.9578
+Epoch 26/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1231 - accuracy: 0.9613 - val_loss: 0.1147 - val_accuracy: 0.9620
+Epoch 27/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0961 - accuracy: 0.9653 - val_loss: 0.0983 - val_accuracy: 0.9599
+Epoch 28/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0750 - accuracy: 0.9751 - val_loss: 0.0895 - val_accuracy: 0.9641
+Epoch 29/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0814 - accuracy: 0.9768 - val_loss: 0.0917 - val_accuracy: 0.9684
+Epoch 30/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0623 - accuracy: 0.9840 - val_loss: 0.0714 - val_accuracy: 0.9662
+Epoch 31/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0702 - accuracy: 0.9814 - val_loss: 0.1032 - val_accuracy: 0.9536
+Epoch 32/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0576 - accuracy: 0.9847 - val_loss: 0.1182 - val_accuracy: 0.9620
+Epoch 33/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0804 - accuracy: 0.9698 - val_loss: 0.1552 - val_accuracy: 0.9515
+Epoch 34/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1210 - accuracy: 0.9605 - val_loss: 0.1250 - val_accuracy: 0.9536
+Epoch 35/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.1162 - accuracy: 0.9627 - val_loss: 0.1543 - val_accuracy: 0.9515
+Epoch 36/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0771 - accuracy: 0.9748 - val_loss: 0.1400 - val_accuracy: 0.9494
+Epoch 37/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0755 - accuracy: 0.9737 - val_loss: 0.1212 - val_accuracy: 0.9599
+Epoch 38/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0733 - accuracy: 0.9802 - val_loss: 0.0858 - val_accuracy: 0.9662
+Epoch 39/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0596 - accuracy: 0.9841 - val_loss: 0.0919 - val_accuracy: 0.9684
+Epoch 40/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0582 - accuracy: 0.9847 - val_loss: 0.1410 - val_accuracy: 0.9494
+Epoch 41/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0605 - accuracy: 0.9819 - val_loss: 0.1231 - val_accuracy: 0.9557
+Epoch 42/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0866 - accuracy: 0.9711 - val_loss: 0.1754 - val_accuracy: 0.9430
+Epoch 43/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0897 - accuracy: 0.9730 - val_loss: 0.1369 - val_accuracy: 0.9473
+Epoch 44/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0474 - accuracy: 0.9875 - val_loss: 0.1042 - val_accuracy: 0.9578
+Epoch 45/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0486 - accuracy: 0.9885 - val_loss: 0.0558 - val_accuracy: 0.9789
+Epoch 46/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0528 - accuracy: 0.9844 - val_loss: 0.1049 - val_accuracy: 0.9641
+Epoch 47/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0452 - accuracy: 0.9837 - val_loss: 0.0808 - val_accuracy: 0.9599
+Epoch 48/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0627 - accuracy: 0.9777 - val_loss: 0.0476 - val_accuracy: 0.9831
+Epoch 49/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0758 - accuracy: 0.9735 - val_loss: 0.0996 - val_accuracy: 0.9620
+Epoch 50/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0793 - accuracy: 0.9696 - val_loss: 0.1172 - val_accuracy: 0.9557
+Epoch 51/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0645 - accuracy: 0.9803 - val_loss: 0.0502 - val_accuracy: 0.9810
+Epoch 52/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0450 - accuracy: 0.9880 - val_loss: 0.1245 - val_accuracy: 0.9536
+Epoch 53/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0738 - accuracy: 0.9806 - val_loss: 0.1782 - val_accuracy: 0.9241
+Epoch 54/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0702 - accuracy: 0.9762 - val_loss: 0.2639 - val_accuracy: 0.9219
+Epoch 55/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0532 - accuracy: 0.9751 - val_loss: 0.0560 - val_accuracy: 0.9789
+Epoch 56/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0406 - accuracy: 0.9870 - val_loss: 0.0451 - val_accuracy: 0.9810
+Epoch 57/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0501 - accuracy: 0.9838 - val_loss: 0.0739 - val_accuracy: 0.9684
+Epoch 58/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0471 - accuracy: 0.9844 - val_loss: 0.0681 - val_accuracy: 0.9705
+Epoch 59/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0362 - accuracy: 0.9876 - val_loss: 0.1189 - val_accuracy: 0.9599
+Epoch 60/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0388 - accuracy: 0.9888 - val_loss: 0.1017 - val_accuracy: 0.9684
+Epoch 61/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0733 - accuracy: 0.9779 - val_loss: 0.0892 - val_accuracy: 0.9705
+Epoch 62/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0485 - accuracy: 0.9830 - val_loss: 0.0681 - val_accuracy: 0.9726
+Epoch 63/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0471 - accuracy: 0.9832 - val_loss: 0.0902 - val_accuracy: 0.9641
+Epoch 64/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0447 - accuracy: 0.9878 - val_loss: 0.0959 - val_accuracy: 0.9662
+Epoch 65/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0877 - accuracy: 0.9687 - val_loss: 0.1140 - val_accuracy: 0.9705
+Epoch 66/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0527 - accuracy: 0.9870 - val_loss: 0.0587 - val_accuracy: 0.9789
+Epoch 67/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0674 - accuracy: 0.9743 - val_loss: 0.0549 - val_accuracy: 0.9810
+Epoch 68/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0345 - accuracy: 0.9900 - val_loss: 0.1031 - val_accuracy: 0.9747
+Epoch 69/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0383 - accuracy: 0.9894 - val_loss: 0.0727 - val_accuracy: 0.9852
+Epoch 70/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0333 - accuracy: 0.9874 - val_loss: 0.0531 - val_accuracy: 0.9873
+Epoch 71/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0392 - accuracy: 0.9844 - val_loss: 0.0949 - val_accuracy: 0.9705
+Epoch 72/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0403 - accuracy: 0.9895 - val_loss: 0.0829 - val_accuracy: 0.9726
+Epoch 73/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0268 - accuracy: 0.9923 - val_loss: 0.0606 - val_accuracy: 0.9831
+Epoch 74/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0393 - accuracy: 0.9873 - val_loss: 0.0445 - val_accuracy: 0.9852
+Epoch 75/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0300 - accuracy: 0.9927 - val_loss: 0.1155 - val_accuracy: 0.9641
+Epoch 76/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0316 - accuracy: 0.9911 - val_loss: 0.0633 - val_accuracy: 0.9852
+Epoch 77/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0364 - accuracy: 0.9879 - val_loss: 0.0778 - val_accuracy: 0.9768
+Epoch 78/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0444 - accuracy: 0.9844 - val_loss: 0.0553 - val_accuracy: 0.9747
+Epoch 79/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0381 - accuracy: 0.9875 - val_loss: 0.2288 - val_accuracy: 0.9262
+Epoch 80/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0488 - accuracy: 0.9863 - val_loss: 0.1239 - val_accuracy: 0.9578
+Epoch 81/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0241 - accuracy: 0.9947 - val_loss: 0.0815 - val_accuracy: 0.9662
+Epoch 82/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0431 - accuracy: 0.9864 - val_loss: 0.0472 - val_accuracy: 0.9831
+Epoch 83/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0386 - accuracy: 0.9865 - val_loss: 0.0281 - val_accuracy: 0.9895
+Epoch 84/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0512 - accuracy: 0.9804 - val_loss: 0.0436 - val_accuracy: 0.9852
+Epoch 85/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0375 - accuracy: 0.9854 - val_loss: 0.0460 - val_accuracy: 0.9810
+Epoch 86/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0350 - accuracy: 0.9920 - val_loss: 0.0636 - val_accuracy: 0.9768
+Epoch 87/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0187 - accuracy: 0.9958 - val_loss: 0.0413 - val_accuracy: 0.9895
+Epoch 88/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0332 - accuracy: 0.9879 - val_loss: 0.0432 - val_accuracy: 0.9852
+Epoch 89/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0617 - accuracy: 0.9755 - val_loss: 0.0306 - val_accuracy: 0.9916
+Epoch 90/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0249 - accuracy: 0.9945 - val_loss: 0.0911 - val_accuracy: 0.9641
+Epoch 91/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0269 - accuracy: 0.9942 - val_loss: 0.1223 - val_accuracy: 0.9536
+Epoch 92/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0531 - accuracy: 0.9814 - val_loss: 0.0291 - val_accuracy: 0.9937
+Epoch 93/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0283 - accuracy: 0.9934 - val_loss: 0.0357 - val_accuracy: 0.9873
+Epoch 94/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0417 - accuracy: 0.9850 - val_loss: 0.0689 - val_accuracy: 0.9726
+Epoch 95/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0365 - accuracy: 0.9924 - val_loss: 0.0735 - val_accuracy: 0.9705
+Epoch 96/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0376 - accuracy: 0.9841 - val_loss: 0.0602 - val_accuracy: 0.9831
+Epoch 97/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0216 - accuracy: 0.9955 - val_loss: 0.0537 - val_accuracy: 0.9852
+Epoch 98/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0310 - accuracy: 0.9901 - val_loss: 0.0521 - val_accuracy: 0.9768
+Epoch 99/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0327 - accuracy: 0.9917 - val_loss: 0.0459 - val_accuracy: 0.9873
+Epoch 100/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0407 - accuracy: 0.9877 - val_loss: 0.0637 - val_accuracy: 0.9789
+Epoch 101/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0350 - accuracy: 0.9862 - val_loss: 0.0376 - val_accuracy: 0.9873
+Epoch 102/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0200 - accuracy: 0.9926 - val_loss: 0.0683 - val_accuracy: 0.9789
+Epoch 103/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0160 - accuracy: 0.9949 - val_loss: 0.0523 - val_accuracy: 0.9768
+Epoch 104/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0200 - accuracy: 0.9913 - val_loss: 0.0583 - val_accuracy: 0.9810
+Epoch 105/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0379 - accuracy: 0.9853 - val_loss: 0.0740 - val_accuracy: 0.9747
+Epoch 106/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0919 - accuracy: 0.9675 - val_loss: 0.0589 - val_accuracy: 0.9831
+Epoch 107/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0507 - accuracy: 0.9847 - val_loss: 0.0675 - val_accuracy: 0.9789
+Epoch 108/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0196 - accuracy: 0.9931 - val_loss: 0.0508 - val_accuracy: 0.9852
+Epoch 109/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0143 - accuracy: 0.9973 - val_loss: 0.0418 - val_accuracy: 0.9810
+Epoch 110/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0272 - accuracy: 0.9943 - val_loss: 0.0365 - val_accuracy: 0.9831
+Epoch 111/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0170 - accuracy: 0.9964 - val_loss: 0.0365 - val_accuracy: 0.9852
+Epoch 112/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0148 - accuracy: 0.9967 - val_loss: 0.0632 - val_accuracy: 0.9810
+Epoch 113/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0191 - accuracy: 0.9936 - val_loss: 0.0586 - val_accuracy: 0.9768
+Epoch 114/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0262 - accuracy: 0.9919 - val_loss: 0.0975 - val_accuracy: 0.9789
+Epoch 115/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0137 - accuracy: 0.9980 - val_loss: 0.0829 - val_accuracy: 0.9747
+Epoch 116/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0188 - accuracy: 0.9941 - val_loss: 0.0864 - val_accuracy: 0.9705
+Epoch 117/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0183 - accuracy: 0.9948 - val_loss: 0.0937 - val_accuracy: 0.9705
+Epoch 118/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0419 - accuracy: 0.9888 - val_loss: 0.0243 - val_accuracy: 0.9916
+Epoch 119/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0206 - accuracy: 0.9941 - val_loss: 0.0322 - val_accuracy: 0.9895
+Epoch 120/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0349 - accuracy: 0.9913 - val_loss: 0.1722 - val_accuracy: 0.9451
+Epoch 121/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0287 - accuracy: 0.9910 - val_loss: 0.0755 - val_accuracy: 0.9810
+Epoch 122/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0217 - accuracy: 0.9936 - val_loss: 0.0446 - val_accuracy: 0.9810
+Epoch 123/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0155 - accuracy: 0.9958 - val_loss: 0.0318 - val_accuracy: 0.9873
+Epoch 124/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0199 - accuracy: 0.9916 - val_loss: 0.0398 - val_accuracy: 0.9852
+Epoch 125/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0412 - accuracy: 0.9886 - val_loss: 0.0788 - val_accuracy: 0.9726
+Epoch 126/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0311 - accuracy: 0.9902 - val_loss: 0.0831 - val_accuracy: 0.9599
+Epoch 127/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0388 - accuracy: 0.9881 - val_loss: 0.0629 - val_accuracy: 0.9747
+Epoch 128/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0436 - accuracy: 0.9864 - val_loss: 0.1216 - val_accuracy: 0.9599
+Epoch 129/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0220 - accuracy: 0.9938 - val_loss: 0.0875 - val_accuracy: 0.9662
+Epoch 130/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0225 - accuracy: 0.9929 - val_loss: 0.0404 - val_accuracy: 0.9831
+Epoch 131/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0187 - accuracy: 0.9929 - val_loss: 0.0354 - val_accuracy: 0.9852
+Epoch 132/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0187 - accuracy: 0.9918 - val_loss: 0.0446 - val_accuracy: 0.9831
+Epoch 133/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0411 - accuracy: 0.9874 - val_loss: 0.0423 - val_accuracy: 0.9810
+Epoch 134/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0358 - accuracy: 0.9885 - val_loss: 0.0427 - val_accuracy: 0.9831
+Epoch 135/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0176 - accuracy: 0.9962 - val_loss: 0.0686 - val_accuracy: 0.9810
+Epoch 136/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0710 - accuracy: 0.9809 - val_loss: 0.0698 - val_accuracy: 0.9726
+Epoch 137/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0354 - accuracy: 0.9882 - val_loss: 0.0423 - val_accuracy: 0.9831
+Epoch 138/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0474 - accuracy: 0.9837 - val_loss: 0.0616 - val_accuracy: 0.9810
+Epoch 139/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0450 - accuracy: 0.9883 - val_loss: 0.0290 - val_accuracy: 0.9937
+Epoch 140/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0187 - accuracy: 0.9954 - val_loss: 0.0446 - val_accuracy: 0.9873
+Epoch 141/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0235 - accuracy: 0.9925 - val_loss: 0.0391 - val_accuracy: 0.9831
+Epoch 142/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0457 - accuracy: 0.9869 - val_loss: 0.0284 - val_accuracy: 0.9873
+Epoch 143/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0321 - accuracy: 0.9906 - val_loss: 0.0327 - val_accuracy: 0.9831
+Epoch 144/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0267 - accuracy: 0.9911 - val_loss: 0.0296 - val_accuracy: 0.9810
+Epoch 145/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0229 - accuracy: 0.9940 - val_loss: 0.0411 - val_accuracy: 0.9831
+Epoch 146/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0288 - accuracy: 0.9892 - val_loss: 0.1346 - val_accuracy: 0.9620
+Epoch 147/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0201 - accuracy: 0.9916 - val_loss: 0.0327 - val_accuracy: 0.9916
+Epoch 148/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0360 - accuracy: 0.9892 - val_loss: 0.0422 - val_accuracy: 0.9852
+Epoch 149/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0142 - accuracy: 0.9959 - val_loss: 0.0225 - val_accuracy: 0.9895
+Epoch 150/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0179 - accuracy: 0.9946 - val_loss: 0.0402 - val_accuracy: 0.9852
+Epoch 151/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0113 - accuracy: 0.9972 - val_loss: 0.0281 - val_accuracy: 0.9895
+Epoch 152/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0178 - accuracy: 0.9934 - val_loss: 0.0206 - val_accuracy: 0.9958
+Epoch 153/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0153 - accuracy: 0.9952 - val_loss: 0.0393 - val_accuracy: 0.9852
+Epoch 154/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0125 - accuracy: 0.9975 - val_loss: 0.0599 - val_accuracy: 0.9768
+Epoch 155/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0462 - accuracy: 0.9857 - val_loss: 0.0683 - val_accuracy: 0.9831
+Epoch 156/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0187 - accuracy: 0.9941 - val_loss: 0.0370 - val_accuracy: 0.9852
+Epoch 157/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0225 - accuracy: 0.9944 - val_loss: 0.0370 - val_accuracy: 0.9852
+Epoch 158/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0431 - accuracy: 0.9836 - val_loss: 0.0474 - val_accuracy: 0.9831
+Epoch 159/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0331 - accuracy: 0.9886 - val_loss: 0.0220 - val_accuracy: 0.9916
+Epoch 160/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0309 - accuracy: 0.9895 - val_loss: 0.0532 - val_accuracy: 0.9810
+Epoch 161/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0235 - accuracy: 0.9935 - val_loss: 0.0291 - val_accuracy: 0.9873
+Epoch 162/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0166 - accuracy: 0.9939 - val_loss: 0.0328 - val_accuracy: 0.9852
+Epoch 163/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0418 - accuracy: 0.9853 - val_loss: 0.0185 - val_accuracy: 0.9916
+Epoch 164/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0201 - accuracy: 0.9942 - val_loss: 0.0486 - val_accuracy: 0.9789
+Epoch 165/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0229 - accuracy: 0.9918 - val_loss: 0.0666 - val_accuracy: 0.9747
+Epoch 166/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0145 - accuracy: 0.9950 - val_loss: 0.0260 - val_accuracy: 0.9916
+Epoch 167/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0249 - accuracy: 0.9933 - val_loss: 0.0369 - val_accuracy: 0.9789
+Epoch 168/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0313 - accuracy: 0.9873 - val_loss: 0.0319 - val_accuracy: 0.9873
+Epoch 169/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0407 - accuracy: 0.9792 - val_loss: 0.0426 - val_accuracy: 0.9831
+Epoch 170/300
+60/60 [==============================] - 2s 34ms/step - loss: 0.0373 - accuracy: 0.9839 - val_loss: 0.0417 - val_accuracy: 0.9831
+Epoch 171/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0501 - accuracy: 0.9860 - val_loss: 0.0204 - val_accuracy: 0.9958
+Epoch 172/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0239 - accuracy: 0.9905 - val_loss: 0.0270 - val_accuracy: 0.9937
+Epoch 173/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0150 - accuracy: 0.9928 - val_loss: 0.0418 - val_accuracy: 0.9852
+Epoch 174/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0243 - accuracy: 0.9918 - val_loss: 0.0321 - val_accuracy: 0.9852
+Epoch 175/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0170 - accuracy: 0.9965 - val_loss: 0.0246 - val_accuracy: 0.9895
+Epoch 176/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0534 - accuracy: 0.9783 - val_loss: 0.0658 - val_accuracy: 0.9768
+Epoch 177/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0208 - accuracy: 0.9933 - val_loss: 0.0444 - val_accuracy: 0.9747
+Epoch 178/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0096 - accuracy: 0.9973 - val_loss: 0.0238 - val_accuracy: 0.9916
+Epoch 179/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0291 - accuracy: 0.9909 - val_loss: 0.0809 - val_accuracy: 0.9726
+Epoch 180/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0135 - accuracy: 0.9958 - val_loss: 0.0677 - val_accuracy: 0.9768
+Epoch 181/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0152 - accuracy: 0.9969 - val_loss: 0.1106 - val_accuracy: 0.9557
+Epoch 182/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0297 - accuracy: 0.9910 - val_loss: 0.0346 - val_accuracy: 0.9895
+Epoch 183/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0160 - accuracy: 0.9955 - val_loss: 0.0235 - val_accuracy: 0.9916
+Epoch 184/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0117 - accuracy: 0.9959 - val_loss: 0.0206 - val_accuracy: 0.9895
+Epoch 185/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0068 - accuracy: 0.9997 - val_loss: 0.0210 - val_accuracy: 0.9916
+Epoch 186/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0138 - accuracy: 0.9949 - val_loss: 0.0307 - val_accuracy: 0.9895
+Epoch 187/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0136 - accuracy: 0.9974 - val_loss: 0.0361 - val_accuracy: 0.9852
+Epoch 188/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0102 - accuracy: 0.9974 - val_loss: 0.0254 - val_accuracy: 0.9916
+Epoch 189/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0200 - accuracy: 0.9944 - val_loss: 0.0355 - val_accuracy: 0.9895
+Epoch 190/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0086 - accuracy: 0.9995 - val_loss: 0.0450 - val_accuracy: 0.9810
+Epoch 191/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0353 - accuracy: 0.9877 - val_loss: 0.1791 - val_accuracy: 0.9557
+Epoch 192/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0423 - accuracy: 0.9853 - val_loss: 0.7901 - val_accuracy: 0.8186
+Epoch 193/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0172 - accuracy: 0.9953 - val_loss: 0.0759 - val_accuracy: 0.9726
+Epoch 194/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0254 - accuracy: 0.9930 - val_loss: 0.0519 - val_accuracy: 0.9789
+Epoch 195/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0253 - accuracy: 0.9927 - val_loss: 0.0849 - val_accuracy: 0.9726
+Epoch 196/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0288 - accuracy: 0.9870 - val_loss: 0.0355 - val_accuracy: 0.9895
+Epoch 197/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0181 - accuracy: 0.9956 - val_loss: 0.0531 - val_accuracy: 0.9831
+Epoch 198/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0224 - accuracy: 0.9946 - val_loss: 0.0222 - val_accuracy: 0.9895
+Epoch 199/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0164 - accuracy: 0.9966 - val_loss: 0.0500 - val_accuracy: 0.9810
+Epoch 200/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0606 - accuracy: 0.9810 - val_loss: 0.0813 - val_accuracy: 0.9705
+Epoch 201/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0102 - accuracy: 0.9981 - val_loss: 0.0359 - val_accuracy: 0.9831
+Epoch 202/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0248 - accuracy: 0.9906 - val_loss: 0.0566 - val_accuracy: 0.9852
+Epoch 203/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0253 - accuracy: 0.9917 - val_loss: 0.0755 - val_accuracy: 0.9747
+Epoch 204/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0084 - accuracy: 0.9975 - val_loss: 0.0630 - val_accuracy: 0.9810
+Epoch 205/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0111 - accuracy: 0.9976 - val_loss: 0.0502 - val_accuracy: 0.9831
+Epoch 206/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0127 - accuracy: 0.9975 - val_loss: 0.0483 - val_accuracy: 0.9768
+Epoch 207/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0369 - accuracy: 0.9903 - val_loss: 0.0371 - val_accuracy: 0.9873
+Epoch 208/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0161 - accuracy: 0.9948 - val_loss: 0.0907 - val_accuracy: 0.9726
+Epoch 209/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0272 - accuracy: 0.9909 - val_loss: 0.5076 - val_accuracy: 0.8966
+Epoch 210/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0204 - accuracy: 0.9916 - val_loss: 0.1171 - val_accuracy: 0.9726
+Epoch 211/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0406 - accuracy: 0.9890 - val_loss: 0.0668 - val_accuracy: 0.9747
+Epoch 212/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0110 - accuracy: 0.9963 - val_loss: 0.0388 - val_accuracy: 0.9873
+Epoch 213/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0229 - accuracy: 0.9915 - val_loss: 0.0803 - val_accuracy: 0.9831
+Epoch 214/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0256 - accuracy: 0.9924 - val_loss: 0.2554 - val_accuracy: 0.9346
+Epoch 215/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0331 - accuracy: 0.9869 - val_loss: 0.0321 - val_accuracy: 0.9810
+Epoch 216/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0102 - accuracy: 0.9948 - val_loss: 0.0251 - val_accuracy: 0.9895
+Epoch 217/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0118 - accuracy: 0.9958 - val_loss: 0.0205 - val_accuracy: 0.9916
+Epoch 218/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0236 - accuracy: 0.9934 - val_loss: 0.0235 - val_accuracy: 0.9937
+Epoch 219/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0146 - accuracy: 0.9939 - val_loss: 0.0345 - val_accuracy: 0.9916
+Epoch 220/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0207 - accuracy: 0.9920 - val_loss: 0.0545 - val_accuracy: 0.9852
+Epoch 221/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0099 - accuracy: 0.9979 - val_loss: 0.0199 - val_accuracy: 0.9916
+Epoch 222/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0225 - accuracy: 0.9893 - val_loss: 0.0582 - val_accuracy: 0.9789
+Epoch 223/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0268 - accuracy: 0.9904 - val_loss: 0.0331 - val_accuracy: 0.9831
+Epoch 224/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0060 - accuracy: 0.9986 - val_loss: 0.0260 - val_accuracy: 0.9873
+Epoch 225/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0134 - accuracy: 0.9967 - val_loss: 0.0325 - val_accuracy: 0.9831
+Epoch 226/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0167 - accuracy: 0.9914 - val_loss: 0.0184 - val_accuracy: 0.9937
+Epoch 227/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0105 - accuracy: 0.9953 - val_loss: 0.0295 - val_accuracy: 0.9895
+Epoch 228/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0069 - accuracy: 0.9997 - val_loss: 0.0201 - val_accuracy: 0.9937
+Epoch 229/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0505 - accuracy: 0.9816 - val_loss: 0.0527 - val_accuracy: 0.9852
+Epoch 230/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0272 - accuracy: 0.9918 - val_loss: 0.1166 - val_accuracy: 0.9620
+Epoch 231/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0114 - accuracy: 0.9957 - val_loss: 0.1236 - val_accuracy: 0.9620
+Epoch 232/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0302 - accuracy: 0.9910 - val_loss: 0.2495 - val_accuracy: 0.9473
+Epoch 233/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0171 - accuracy: 0.9946 - val_loss: 0.0748 - val_accuracy: 0.9768
+Epoch 234/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0123 - accuracy: 0.9962 - val_loss: 0.2528 - val_accuracy: 0.9367
+Epoch 235/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0081 - accuracy: 0.9991 - val_loss: 0.1483 - val_accuracy: 0.9620
+Epoch 236/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0271 - accuracy: 0.9896 - val_loss: 0.0288 - val_accuracy: 0.9895
+Epoch 237/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0061 - accuracy: 0.9995 - val_loss: 0.0309 - val_accuracy: 0.9916
+Epoch 238/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0267 - accuracy: 0.9909 - val_loss: 0.0288 - val_accuracy: 0.9916
+Epoch 239/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0281 - accuracy: 0.9894 - val_loss: 0.0264 - val_accuracy: 0.9895
+Epoch 240/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0205 - accuracy: 0.9939 - val_loss: 0.0384 - val_accuracy: 0.9873
+Epoch 241/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0079 - accuracy: 0.9981 - val_loss: 0.0156 - val_accuracy: 0.9937
+Epoch 242/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0108 - accuracy: 0.9953 - val_loss: 0.0235 - val_accuracy: 0.9895
+Epoch 243/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0075 - accuracy: 0.9980 - val_loss: 0.0286 - val_accuracy: 0.9873
+Epoch 244/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0253 - accuracy: 0.9903 - val_loss: 0.0530 - val_accuracy: 0.9831
+Epoch 245/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0405 - accuracy: 0.9866 - val_loss: 0.1683 - val_accuracy: 0.9684
+Epoch 246/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0331 - accuracy: 0.9944 - val_loss: 0.0373 - val_accuracy: 0.9873
+Epoch 247/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0160 - accuracy: 0.9943 - val_loss: 0.0312 - val_accuracy: 0.9895
+Epoch 248/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0138 - accuracy: 0.9959 - val_loss: 0.1098 - val_accuracy: 0.9726
+Epoch 249/300
+60/60 [==============================] - 2s 34ms/step - loss: 0.0303 - accuracy: 0.9932 - val_loss: 0.0966 - val_accuracy: 0.9747
+Epoch 250/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0130 - accuracy: 0.9955 - val_loss: 0.0570 - val_accuracy: 0.9831
+Epoch 251/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0104 - accuracy: 0.9976 - val_loss: 0.0149 - val_accuracy: 0.9958
+Epoch 252/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0108 - accuracy: 0.9975 - val_loss: 0.0343 - val_accuracy: 0.9873
+Epoch 253/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0083 - accuracy: 0.9989 - val_loss: 0.0251 - val_accuracy: 0.9852
+Epoch 254/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0248 - accuracy: 0.9905 - val_loss: 0.0886 - val_accuracy: 0.9747
+Epoch 255/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0160 - accuracy: 0.9958 - val_loss: 0.0229 - val_accuracy: 0.9937
+Epoch 256/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0119 - accuracy: 0.9967 - val_loss: 0.0146 - val_accuracy: 0.9937
+Epoch 257/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0125 - accuracy: 0.9948 - val_loss: 0.0238 - val_accuracy: 0.9873
+Epoch 258/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0478 - accuracy: 0.9845 - val_loss: 0.0761 - val_accuracy: 0.9768
+Epoch 259/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0176 - accuracy: 0.9922 - val_loss: 0.0290 - val_accuracy: 0.9937
+Epoch 260/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0217 - accuracy: 0.9941 - val_loss: 0.0238 - val_accuracy: 0.9916
+Epoch 261/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0133 - accuracy: 0.9965 - val_loss: 0.0543 - val_accuracy: 0.9726
+Epoch 262/300
+60/60 [==============================] - 2s 34ms/step - loss: 0.0199 - accuracy: 0.9931 - val_loss: 0.0350 - val_accuracy: 0.9831
+Epoch 263/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0150 - accuracy: 0.9942 - val_loss: 0.0233 - val_accuracy: 0.9916
+Epoch 264/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0113 - accuracy: 0.9972 - val_loss: 0.0284 - val_accuracy: 0.9895
+Epoch 265/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0140 - accuracy: 0.9961 - val_loss: 0.0276 - val_accuracy: 0.9916
+Epoch 266/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0385 - accuracy: 0.9874 - val_loss: 0.0430 - val_accuracy: 0.9852
+Epoch 267/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0114 - accuracy: 0.9973 - val_loss: 0.0354 - val_accuracy: 0.9895
+Epoch 268/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0171 - accuracy: 0.9946 - val_loss: 0.0381 - val_accuracy: 0.9852
+Epoch 269/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0206 - accuracy: 0.9928 - val_loss: 0.0565 - val_accuracy: 0.9852
+Epoch 270/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0322 - accuracy: 0.9884 - val_loss: 0.0896 - val_accuracy: 0.9557
+Epoch 271/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0395 - accuracy: 0.9864 - val_loss: 0.0452 - val_accuracy: 0.9768
+Epoch 272/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0127 - accuracy: 0.9970 - val_loss: 0.0234 - val_accuracy: 0.9873
+Epoch 273/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0112 - accuracy: 0.9958 - val_loss: 0.0212 - val_accuracy: 0.9916
+Epoch 274/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0094 - accuracy: 0.9971 - val_loss: 0.0276 - val_accuracy: 0.9873
+Epoch 275/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0495 - accuracy: 0.9850 - val_loss: 0.0335 - val_accuracy: 0.9895
+Epoch 276/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0165 - accuracy: 0.9962 - val_loss: 0.0177 - val_accuracy: 0.9937
+Epoch 277/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0166 - accuracy: 0.9954 - val_loss: 0.0238 - val_accuracy: 0.9873
+Epoch 278/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0120 - accuracy: 0.9948 - val_loss: 0.0181 - val_accuracy: 0.9916
+Epoch 279/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0060 - accuracy: 0.9977 - val_loss: 0.0173 - val_accuracy: 0.9916
+Epoch 280/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0243 - accuracy: 0.9939 - val_loss: 0.0235 - val_accuracy: 0.9873
+Epoch 281/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0134 - accuracy: 0.9978 - val_loss: 0.0257 - val_accuracy: 0.9916
+Epoch 282/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0221 - accuracy: 0.9929 - val_loss: 0.0189 - val_accuracy: 0.9937
+Epoch 283/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0101 - accuracy: 0.9939 - val_loss: 0.0276 - val_accuracy: 0.9895
+Epoch 284/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0128 - accuracy: 0.9956 - val_loss: 0.0159 - val_accuracy: 0.9937
+Epoch 285/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0115 - accuracy: 0.9985 - val_loss: 0.0263 - val_accuracy: 0.9873
+Epoch 286/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0083 - accuracy: 0.9983 - val_loss: 0.0240 - val_accuracy: 0.9895
+Epoch 287/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0081 - accuracy: 0.9971 - val_loss: 0.0116 - val_accuracy: 0.9958
+Epoch 288/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0114 - accuracy: 0.9957 - val_loss: 0.0137 - val_accuracy: 0.9937
+Epoch 289/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0080 - accuracy: 0.9971 - val_loss: 0.0142 - val_accuracy: 0.9937
+Epoch 290/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0197 - accuracy: 0.9933 - val_loss: 0.3072 - val_accuracy: 0.9093
+Epoch 291/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0434 - accuracy: 0.9845 - val_loss: 0.0798 - val_accuracy: 0.9641
+Epoch 292/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0125 - accuracy: 0.9972 - val_loss: 0.0221 - val_accuracy: 0.9916
+Epoch 293/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0245 - accuracy: 0.9890 - val_loss: 0.0304 - val_accuracy: 0.9895
+Epoch 294/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0133 - accuracy: 0.9945 - val_loss: 0.0155 - val_accuracy: 0.9916
+Epoch 295/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0095 - accuracy: 0.9988 - val_loss: 0.0247 - val_accuracy: 0.9873
+Epoch 296/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0207 - accuracy: 0.9918 - val_loss: 0.0763 - val_accuracy: 0.9852
+Epoch 297/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0116 - accuracy: 0.9959 - val_loss: 0.0303 - val_accuracy: 0.9873
+Epoch 298/300
+60/60 [==============================] - 2s 32ms/step - loss: 0.0567 - accuracy: 0.9814 - val_loss: 0.1111 - val_accuracy: 0.9599
+Epoch 299/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0396 - accuracy: 0.9879 - val_loss: 0.3911 - val_accuracy: 0.8797
+Epoch 300/300
+60/60 [==============================] - 2s 33ms/step - loss: 0.0135 - accuracy: 0.9980 - val_loss: 0.1140 - val_accuracy: 0.9662
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tensorflow.python.keras.callbacks.History at 0x7fc220082c50&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Vẽ loss và accuracy của quá trình huấn luyện lên đồ thị để quan sát sự thay đổi và đưa ra đánh giá</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Accuracy</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">#Hàm savgol_filter để làm đồ thị mượt hơn, có thể dùng cho đẹp</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">savgol_filter</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">log</span> <span class="k">as</span> <span class="n">ln</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">log10</span> <span class="k">as</span> <span class="n">log</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">history</span>
+<span class="n">acc</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">],</span><span class="mi">51</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">val_acc</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_acc&#39;</span><span class="p">],</span><span class="mi">51</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">val_acc</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;valid&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/training_20_0.png" src="../../_images/training_20_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Loss</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># summarize history for loss</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">299</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">299</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;model loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;epoch&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/training_21_0.png" src="../../_images/training_21_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Sau khi huấn luyện và đánh giá xong, chọn mô hình tốt nhất để triển khai lên hệ thống phân loại, model file sẽ có dạng <weight>.h5</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./pages/gradproject-documentation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="dataprepare.html" title="previous page">Chuẩn bị dữ liệu</a>
+    <a class='right-next' id="next-link" href="deploy.html" title="next page">Triển khai</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Phat Truong<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
