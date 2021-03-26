@@ -99,10 +99,13 @@ model.summary()
 
 model.compile(optimizer ='adam', loss = 'categorical_crossentropy',metrics = ['accuracy'])
 
-#filepath="trained_model/size_100_18-02/weights.100.{epoch:02d}-{val_acc:.2f}.h5"
-#checkpoint = keras.callbacks.ModelCheckpoint(filepath, monitor='val_acc', verbose=0, mode='auto')
-#callbacks_list = [checkpoint]
-model.fit(x = x_train, y = y_train, epochs = 300,validation_split=0.2)#,callbacks = callbacks_list)
+* Chuyển param mode trong dòng `checkpoint` thành `best` nếu chỉ muốn lưu model có độ chính xác trên tập validation lớn nhất
+* `filepath` là format đường dẫn của những model lưu xuống trong khi train, có thể thay đổi tùy ý
+
+filepath="trained_model/size_100_18-02/weights.100.{epoch:02d}-{val_accuracy:.2f}.h5"
+checkpoint = keras.callbacks.ModelCheckpoint(filepath, monitor='val_acc', verbose=0, mode='auto') # change 'auto' to 'best' if needed
+callbacks_list = [checkpoint]
+model.fit(x = x_train, y = y_train, epochs = 300,validation_split=0.2,callbacks = callbacks_list)
 
 * Vẽ loss và accuracy của quá trình huấn luyện lên đồ thị để quan sát sự thay đổi và đưa ra đánh giá
 

@@ -458,12 +458,16 @@ ________________________________________________________________________________
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Chuyển param mode trong dòng <code class="docutils literal notranslate"><span class="pre">checkpoint</span></code> thành <code class="docutils literal notranslate"><span class="pre">best</span></code> nếu chỉ muốn lưu model có độ chính xác trên tập validation lớn nhất</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filepath</span></code> là format đường dẫn của những model lưu xuống trong khi train, có thể thay đổi tùy ý</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#filepath=&quot;trained_model/size_100_18-02/weights.100.{epoch:02d}-{val_acc:.2f}.h5&quot;</span>
-<span class="c1">#checkpoint = keras.callbacks.ModelCheckpoint(filepath, monitor=&#39;val_acc&#39;, verbose=0, mode=&#39;auto&#39;)</span>
-<span class="c1">#callbacks_list = [checkpoint]</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="c1">#,callbacks = callbacks_list)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;trained_model/size_100_18-02/weights.100.</span><span class="si">{epoch:02d}</span><span class="s2">-</span><span class="si">{val_accuracy:.2f}</span><span class="s2">.h5&quot;</span>
+<span class="n">checkpoint</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_acc&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span> <span class="c1"># change &#39;auto&#39; to &#39;best&#39; if needed</span>
+<span class="n">callbacks_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">checkpoint</span><span class="p">]</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span><span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">callbacks</span> <span class="o">=</span> <span class="n">callbacks_list</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1102,7 +1106,7 @@ Epoch 300/300
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/training_20_0.png" src="../../_images/training_20_0.png" />
+<img alt="../../_images/training_21_0.png" src="../../_images/training_21_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1122,7 +1126,7 @@ Epoch 300/300
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/training_21_0.png" src="../../_images/training_21_0.png" />
+<img alt="../../_images/training_22_0.png" src="../../_images/training_22_0.png" />
 </div>
 </div>
 <ul class="simple">
