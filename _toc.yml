@@ -1,5 +1,9 @@
 - file: pages/landing-page
-- part: GRADUATION PROJECT DOCUMENTATION
+- part: More Easily Developing on Window
+  chapters:
+  - file: pages/for-window-users/wsl2
+  - file: pages/for-window-users/dockerwsl2
+- part: Graduation Project Documentation
   chapters:
   - file: pages/gradproject-documentation/overview
   - file: pages/gradproject-documentation/dataprepare
