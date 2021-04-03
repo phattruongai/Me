@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linux on Window by WSL 2 &#8212; Phat Truong</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Docker, Nvidia-Docker in WSL 2" href="dockerwsl2.html" />
+    <link rel="prev" title="INTRODUCTION" href="../landing-page.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.jpg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Phat Truong</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  More Easily Developing on Window
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Linux on Window by WSL 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dockerwsl2.html">
+   Docker, Nvidia-Docker in WSL 2
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Graduation Project Documentation
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gradproject-documentation/overview.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gradproject-documentation/dataprepare.html">
+   Chuẩn bị dữ liệu
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gradproject-documentation/training.html">
+   Huấn luyện
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../gradproject-documentation/deploy.html">
+   Triển khai
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Email: phattruong.ute@gmail.com
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/pages/for-window-users/wsl2.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#window-pc-laptop">
+   1. Window PC, Laptop
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#enable-the-window-subsystem-for-linux">
+     Enable the Window Subsystem for Linux
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-the-requirement-for-wsl2">
+     Check the requirement for WSL2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#enable-the-virtual-machine-feature">
+     Enable the Virtual Machine feature
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#download-and-install-the-linux-kernel-update-package">
+     Download and install the Linux kernel update package
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-the-wsl-2-as-default">
+     Set the WSL 2 as default
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#download-the-linux-distribution-and-start-using">
+     Download the Linux distribution and start using:
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#download">
+       Download
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#install">
+       Install
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#some-other-options-to-run-ubuntu-terminal-except-the-ubuntu-app">
+       Some other options to run Ubuntu terminal except the Ubuntu app
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#powershell">
+         PowerShell
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#window-terminal">
+         Window Terminal
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#coming-soon-visual-studio-code">
+       (Coming soon) Visual Studio Code
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coming-soon-use-linux-gui-with-computer-screen">
+     (Coming soon) Use Linux GUI with computer screen
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#window-server-coming-soon">
+   2. Window Server (Coming soon)
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="linux-on-window-by-wsl-2">
+<h1>Linux on Window by WSL 2<a class="headerlink" href="#linux-on-window-by-wsl-2" title="Permalink to this headline">¶</a></h1>
+<p>Developing on Window is not a struggle thing anymore with the Linux environment. Besides, by using paralelly 2 OS, you have all of the benefits of both environment, for example Linux for developing, Window for officing and gaming or somethings which is the upsides of Window.</p>
+<blockquote>
+<div><p>So cool, right?</p>
+</div></blockquote>
+<p>Although sometimes it still can not be as the real Linux but don’t worry, the communication of the WSL 2 - the key magic mentioned today - is stronger everyday, you can find others help to tackle the issues.</p>
+<p>Now let get started!</p>
+<div class="section" id="window-pc-laptop">
+<h2>1. Window PC, Laptop<a class="headerlink" href="#window-pc-laptop" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="enable-the-window-subsystem-for-linux">
+<h3>Enable the Window Subsystem for Linux<a class="headerlink" href="#enable-the-window-subsystem-for-linux" title="Permalink to this headline">¶</a></h3>
+<p>Open the PowerShell and run the command below to enable this requirement for using any Linux distribution on Window</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+</pre></div>
+</div>
+<p>Go to next step.</p>
+</div>
+<div class="section" id="check-the-requirement-for-wsl2">
+<h3>Check the requirement for WSL2<a class="headerlink" href="#check-the-requirement-for-wsl2" title="Permalink to this headline">¶</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The Window 10 version need to be from version <code class="docutils literal notranslate"><span class="pre">1903</span></code> and build <code class="docutils literal notranslate"><span class="pre">18362</span></code></p>
+</div>
+<p>To check the Window 10 version:</p>
+<ul class="simple">
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">Run</span></code> or use the combo <strong>Window + R</strong></p></li>
+</ul>
+<div class="figure align-default" id="runapp">
+<img alt="../../_images/runapp.png" src="../../_images/runapp.png" />
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Window Run</span><a class="headerlink" href="#runapp" title="Permalink to this image">¶</a></p>
+</div>
+<ul class="simple">
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">winver</span></code> then <strong>ENTER</strong></p></li>
+</ul>
+<div class="figure align-default" id="winver">
+<img alt="../../_images/winver.png" src="../../_images/winver.png" />
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Window Version</span><a class="headerlink" href="#winver" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="enable-the-virtual-machine-feature">
+<h3>Enable the Virtual Machine feature<a class="headerlink" href="#enable-the-virtual-machine-feature" title="Permalink to this headline">¶</a></h3>
+<p>Continue run this command in PowerShell to enable the virtual machine feature on Window</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Now, you need to restart the computer, to make the changes affect to system.</p>
+</div>
+</div>
+<div class="section" id="download-and-install-the-linux-kernel-update-package">
+<h3>Download and install the Linux kernel update package<a class="headerlink" href="#download-and-install-the-linux-kernel-update-package" title="Permalink to this headline">¶</a></h3>
+<p>The current kernel is the original Window version. To use Linux, you need to update to the Linux kernel by the package</p>
+<ul class="simple">
+<li><p>Link for x64 system: <strong><a class="reference external" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">link</a></strong></p></li>
+<li><p>Link for ARM64 system: <strong><a class="reference external" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_arm64.msi">link</a></strong></p></li>
+<li><p>Open file <code class="docutils literal notranslate"><span class="pre">.msi</span></code> to instal the kernel update package</p></li>
+<li><p>Restart the computer</p></li>
+</ul>
+</div>
+<div class="section" id="set-the-wsl-2-as-default">
+<h3>Set the WSL 2 as default<a class="headerlink" href="#set-the-wsl-2-as-default" title="Permalink to this headline">¶</a></h3>
+<p>Run this command in PowerShell:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wsl --set-default-version <span class="m">2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="download-the-linux-distribution-and-start-using">
+<h3>Download the Linux distribution and start using:<a class="headerlink" href="#download-the-linux-distribution-and-start-using" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download">
+<h4>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h4>
+<p>Go to Microsoft Store and download your favorite Linux distro.
+For example, I choose Ubuntu 18.04 below</p>
+<div class="figure align-default" id="store">
+<img alt="../../_images/store.png" src="../../_images/store.png" />
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Ubuntu 18.04 in Microsoft Store</span><a class="headerlink" href="#store" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="install">
+<h4>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h4>
+<p>Just go to <strong>Start Menu</strong> and run the <strong>Ubuntu 18.04</strong>, or you can use <strong>Search</strong> to search for it</p>
+<div class="figure align-default" id="id1">
+<img alt="../../_images/install.png" src="../../_images/install.png" />
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Ubuntu 18.04 in Microsoft Store</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>For the first time, it requires you create your username and password for Ubuntu, after that you can use it normally like any terminal on Ubuntu or MacOS</p>
+</div>
+<div class="section" id="some-other-options-to-run-ubuntu-terminal-except-the-ubuntu-app">
+<h4>Some other options to run Ubuntu terminal except the Ubuntu app<a class="headerlink" href="#some-other-options-to-run-ubuntu-terminal-except-the-ubuntu-app" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="powershell">
+<h5>PowerShell<a class="headerlink" href="#powershell" title="Permalink to this headline">¶</a></h5>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wsl</span> <span class="o">--</span><span class="n">distribution</span><span class="o">/-</span><span class="n">d</span> <span class="o">&lt;</span><span class="n">Name</span> <span class="n">of</span> <span class="n">Linux</span> <span class="n">Distribution</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="wsl-powershell">
+<img alt="../../_images/wsl-powershell.png" src="../../_images/wsl-powershell.png" />
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Using Ubuntu command in PowerShell</span><a class="headerlink" href="#wsl-powershell" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="window-terminal">
+<h5>Window Terminal<a class="headerlink" href="#window-terminal" title="Permalink to this headline">¶</a></h5>
+<p>If this is the first time you hear the term “Window Termminal”, let go to this <a class="reference external" href="https://docs.microsoft.com/en-us/windows/terminal/get-started">Microsoft documentation</a> to find out. This app is so fancy (for me)</p>
+<div class="figure align-default" id="winterminal">
+<img alt="../../_images/winterminal.png" src="../../_images/winterminal.png" />
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">Window Terminal fancy appearance</span><a class="headerlink" href="#winterminal" title="Permalink to this image">¶</a></p>
+</div>
+<ul class="simple">
+<li><p>Choose Ubuntu 18.04 after click on the <strong>down arrow</strong> and start to use Ubuntu</p></li>
+</ul>
+<div class="figure align-default" id="wsl-winterminal">
+<img alt="../../_images/wsl-winterminal.png" src="../../_images/wsl-winterminal.png" />
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Window Terminal fancy appearance</span><a class="headerlink" href="#wsl-winterminal" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="coming-soon-visual-studio-code">
+<h4>(Coming soon) Visual Studio Code<a class="headerlink" href="#coming-soon-visual-studio-code" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="coming-soon-use-linux-gui-with-computer-screen">
+<h3>(Coming soon) Use Linux GUI with computer screen<a class="headerlink" href="#coming-soon-use-linux-gui-with-computer-screen" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="window-server-coming-soon">
+<h2>2. Window Server (Coming soon)<a class="headerlink" href="#window-server-coming-soon" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./pages/for-window-users"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="../landing-page.html" title="previous page">INTRODUCTION</a>
+    <a class='right-next' id="next-link" href="dockerwsl2.html" title="next page">Docker, Nvidia-Docker in WSL 2</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Phat Truong<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
